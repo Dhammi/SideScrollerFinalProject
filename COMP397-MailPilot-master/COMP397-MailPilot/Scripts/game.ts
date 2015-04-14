@@ -31,14 +31,15 @@ var stats: Stats = new Stats();
 var currentScore = 0;
 var highScore = 0;
 var gamePlay1Loop = 5;
-
+var flagStage1 = false;
 
 // Game State Variables
 var currentState: number;
 var currentStateFunction: any;
 var stateChanged: boolean = false;
 
-var gamePlay: states.GamePlay1;
+var gamePlay1: states.GamePlay1;
+var gamePlay2: states.GamePlay2;
 var gameOver: states.GameOver;
 var gamePlay1Over: states.GamePlay1Over;
 var menu: states.Menu;
@@ -49,6 +50,8 @@ var manifest = [
     { id: "cloud", src: "assets/images/asteroids.png" },
     { id: "island", src: "assets/images/planet.png" },
     { id: "ocean", src: "assets/images/space.png" },
+    { id: "rocket", src: "assets/images/rocket.png" },
+    { id: "stage1", src: "assets/images/stage1.png" },
     { id: "plane", src: "assets/images/playership.png" },
     { id: "playButton", src: "assets/images/playGameButton.png" },
     { id: "tryAgainButton", src: "assets/images/playAgainButton.png" },
@@ -127,8 +130,8 @@ function changeState(state: number): void {
 
         case constants.GAME_PLAY_1:
             // instantiate game play screen
-            gamePlay = new states.GamePlay1();
-            currentStateFunction = gamePlay;
+            gamePlay1 = new states.GamePlay1();
+            currentStateFunction = gamePlay1;
             break;
 
         case constants.GAME_OVER_STATE:
@@ -141,6 +144,12 @@ function changeState(state: number): void {
             // instantiate game over screen
             gamePlay1Over = new states.GamePlay1Over();
             currentStateFunction = gamePlay1Over;
+            break;
+
+        case constants.GAME_PLAY_2:
+            // instantiate game over screen
+            gamePlay2 = new states.GamePlay2();
+            currentStateFunction = gamePlay2;
             break;
     }
 }

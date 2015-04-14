@@ -73,8 +73,10 @@
     <Content Include="assets\images\playGameButton.png" />
     <Content Include="assets\images\powerPlanet.png" />
     <Content Include="assets\images\powership.png" />
+    <Content Include="assets\images\rocket.png" />
     <Content Include="assets\images\space.png" />
     <Content Include="assets\images\spaceship.png" />
+    <Content Include="assets\images\stage1.png" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -110,10 +112,13 @@
     <TypeScriptCompile Include="Scripts\objects\ocean.ts" />
     <TypeScriptCompile Include="Scripts\objects\plane.ts" />
     <TypeScriptCompile Include="Scripts\objects\powerPlanet.ts" />
+    <TypeScriptCompile Include="Scripts\objects\rocket.ts" />
     <TypeScriptCompile Include="Scripts\objects\scoreboard.ts" />
+    <TypeScriptCompile Include="Scripts\objects\stage1.ts" />
     <TypeScriptCompile Include="Scripts\states\gameover.ts" />
     <TypeScriptCompile Include="Scripts\states\gameplay1.ts" />
     <TypeScriptCompile Include="Scripts\states\gamePlay1Over.ts" />
+    <TypeScriptCompile Include="Scripts\states\gamePlay2.ts" />
     <TypeScriptCompile Include="Scripts\states\instructions.ts" />
     <TypeScriptCompile Include="Scripts\states\menu.ts" />
     <TypeScriptCompile Include="Scripts\typings\createjs-lib\createjs-lib.d.ts" />

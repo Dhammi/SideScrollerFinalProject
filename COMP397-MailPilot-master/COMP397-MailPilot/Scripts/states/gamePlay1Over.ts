@@ -25,7 +25,7 @@ module states {
 
         // CONSTRUCTOR ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         constructor() {
-            alert();
+            
             // Instantiate Game Container
             this.game = new createjs.Container();
 
@@ -72,7 +72,7 @@ module states {
             if (this.tryAgain) {
                 this.game.removeAllChildren();
                 stage.removeChild(this.game);
-                currentState = constants.GAME_PLAY_1;
+                currentState = constants.GAME_PLAY_2;
                 stateChanged = true;
             }
 

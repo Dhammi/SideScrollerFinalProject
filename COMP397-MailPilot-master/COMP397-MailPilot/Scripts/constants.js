@@ -7,6 +7,7 @@ var constants;
     constants.GAME_OVER_STATE = 2;
     constants.INSTRUCTIONS_STATE = 3;
     constants.GAME_PLAY_1_OVER = 4;
+    constants.GAME_PLAY_2 = 5;
     // Game Constants
     constants.CLOUD_NUM = 3;
     constants.LABEL_FONT = "40px Consolas";

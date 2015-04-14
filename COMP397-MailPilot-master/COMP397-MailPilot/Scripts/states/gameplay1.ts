@@ -158,7 +158,7 @@ module states {
         //public bullet: objects.Bullet[] = [];
         public powerPlanet: objects.PowerPlanet;
         public clouds: objects.Cloud[] = [];
-        public ocean: objects.Ocean;
+        public stage1: objects.Stage1;
         public flagBullet: boolean = false;
         public shield: boolean = false;
         public flagRepeat: number;
@@ -171,9 +171,9 @@ module states {
             this.flagRepeat = 0;
             
 
-            //Ocean object
-            this.ocean = new objects.Ocean();
-            this.game.addChild(this.ocean);
+            //Stage1 background object
+            this.stage1 = new objects.Stage1();
+            this.game.addChild(this.stage1);
 
             //Island object
             this.island = new objects.Island();
@@ -277,19 +277,8 @@ module states {
 
 
         public update() {
-            if (gamePlay1Loop == 0) {
-                createjs.Sound.stop();
-                currentScore = this.scoreboard.score;
-                if (currentScore > highScore) {
-                    highScore = currentScore;
-                }
-                this.game.removeAllChildren();
-                stage.removeChild(this.game);
-                currentState = constants.GAME_PLAY_1_OVER;
-                stateChanged = true;
-            }
-            else{
-            this.ocean.update();
+            
+            this.stage1.update();
 
             this.island.update();
             //alert("y" +this.plane.y);
@@ -345,6 +334,31 @@ module states {
 
 
             this.scoreboard.update();
+            /*
+            if (this.scoreboard.score == 200) {
+                createjs.Sound.stop();
+                currentScore = this.scoreboard.score;
+                if (currentScore > highScore) {
+                    highScore = currentScore;
+                }
+                this.game.removeAllChildren();
+                stage.removeChild(this.game);
+                currentState = constants.GAME_PLAY_1_OVER;
+                stateChanged = true;
+            }
+            */
+
+            if (flagStage1) {
+                createjs.Sound.stop();
+                currentScore = this.scoreboard.score;
+                if (currentScore > highScore) {
+                    highScore = currentScore;
+                }
+                this.game.removeAllChildren();
+                stage.removeChild(this.game);
+                currentState = constants.GAME_PLAY_1_OVER;
+                stateChanged = true;
+            }
 
             if (this.scoreboard.lives < 1) {
                 this.scoreboard.active = false;
@@ -360,7 +374,7 @@ module states {
             }
 
             stage.update(); // Refreshes our stage
-        }
+        
         } // Update Method
 
 

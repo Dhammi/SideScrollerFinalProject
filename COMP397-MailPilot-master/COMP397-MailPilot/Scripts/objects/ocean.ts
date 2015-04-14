@@ -30,12 +30,6 @@ module objects {
         private _checkBounds() {
             // check if island has left the bottom of the screen
             if (this.x == -900) {
-                //alert(currentState);
-                if (currentState = constants.GAME_PLAY_1) {
-                    //alert(gamePlay1Loop);
-                    gamePlay1Loop--;
-                    //alert(gamePlay1Loop);
-                }
                 this.reset();
             }
         }

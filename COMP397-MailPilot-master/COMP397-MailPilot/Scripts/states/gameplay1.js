@@ -153,9 +153,9 @@ var states;
             // Instantiate Game Container
             this.game = new createjs.Container();
             this.flagRepeat = 0;
-            //Ocean object
-            this.ocean = new objects.Ocean();
-            this.game.addChild(this.ocean);
+            //Stage1 background object
+            this.stage1 = new objects.Stage1();
+            this.game.addChild(this.stage1);
             //Island object
             this.island = new objects.Island();
             this.game.addChild(this.island);
@@ -227,7 +227,21 @@ var states;
             }
         }; // checkCollisionWithEnemy Method
         GamePlay1.prototype.update = function () {
-            if (gamePlay1Loop == 0) {
+            this.stage1.update();
+            this.island.update();
+            //alert("y" +this.plane.y);
+            //this.bullet.update(this.plane.x,this.plane.y);
+            this.powerPlanet.update();
+            this.plane.update(controls);
+            for (var cloud = 2; cloud >= 0; cloud--) {
+                this.clouds[cloud].update();
+                this.checkCollision(this.clouds[cloud]);
+            }
+            this.checkCollision(this.island);
+            this.checkCollision(this.powerPlanet);
+            this.scoreboard.update();
+            /*
+            if (this.scoreboard.score == 200) {
                 createjs.Sound.stop();
                 currentScore = this.scoreboard.score;
                 if (currentScore > highScore) {
@@ -238,34 +252,31 @@ var states;
                 currentState = constants.GAME_PLAY_1_OVER;
                 stateChanged = true;
             }
-            else {
-                this.ocean.update();
-                this.island.update();
-                //alert("y" +this.plane.y);
-                //this.bullet.update(this.plane.x,this.plane.y);
-                this.powerPlanet.update();
-                this.plane.update(controls);
-                for (var cloud = 2; cloud >= 0; cloud--) {
-                    this.clouds[cloud].update();
-                    this.checkCollision(this.clouds[cloud]);
+            */
+            if (flagStage1) {
+                createjs.Sound.stop();
+                currentScore = this.scoreboard.score;
+                if (currentScore > highScore) {
+                    highScore = currentScore;
                 }
-                this.checkCollision(this.island);
-                this.checkCollision(this.powerPlanet);
-                this.scoreboard.update();
-                if (this.scoreboard.lives < 1) {
-                    this.scoreboard.active = false;
-                    createjs.Sound.stop();
-                    currentScore = this.scoreboard.score;
-                    if (currentScore > highScore) {
-                        highScore = currentScore;
-                    }
-                    this.game.removeAllChildren();
-                    stage.removeChild(this.game);
-                    currentState = constants.GAME_OVER_STATE;
-                    stateChanged = true;
-                }
-                stage.update(); // Refreshes our stage
+                this.game.removeAllChildren();
+                stage.removeChild(this.game);
+                currentState = constants.GAME_PLAY_1_OVER;
+                stateChanged = true;
             }
+            if (this.scoreboard.lives < 1) {
+                this.scoreboard.active = false;
+                createjs.Sound.stop();
+                currentScore = this.scoreboard.score;
+                if (currentScore > highScore) {
+                    highScore = currentScore;
+                }
+                this.game.removeAllChildren();
+                stage.removeChild(this.game);
+                currentState = constants.GAME_OVER_STATE;
+                stateChanged = true;
+            }
+            stage.update(); // Refreshes our stage
         }; // Update Method
         GamePlay1.prototype.assignControls = function () {
             // Binds key actions
