@@ -3,4 +3,3 @@
 \\psf\Home\Documents\Visual Studio 2013\Projects\COMP397-MailPilot-master\COMP397-MailPilot\bin\COMP2068-CreateJSBoilerPlate.pdb
 \\psf\Home\Documents\Visual Studio 2013\Projects\COMP397-MailPilot-master\COMP397-MailPilot\obj\Debug\COMP2068-CreateJSBoilerPlate.dll
 \\psf\Home\Documents\Visual Studio 2013\Projects\COMP397-MailPilot-master\COMP397-MailPilot\obj\Debug\COMP2068-CreateJSBoilerPlate.pdb
-\\psf\Home\Documents\Visual Studio 2013\Projects\COMP397-MailPilot-master\COMP397-MailPilot\obj\Debug\COMP397-MailPilot.csprojResolveAssemblyReference.cache

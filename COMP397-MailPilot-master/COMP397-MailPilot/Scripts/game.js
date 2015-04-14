@@ -24,7 +24,7 @@ var assetLoader;
 var stats = new Stats();
 var currentScore = 0;
 var highScore = 0;
-var lives = 5;
+var lives = 0;
 var gamePlay1Loop = 5;
 var flagStage1 = false;
 var flagStage2 = false;
@@ -45,6 +45,7 @@ var manifest = [
     { id: "ocean", src: "assets/images/space.png" },
     { id: "rocket", src: "assets/images/rocket.png" },
     { id: "enemyPlane1", src: "assets/images/enemyPlane1.png" },
+    { id: "enemyPlane2", src: "assets/images/enemyPlane2.png" },
     { id: "explosionOriginal", src: "assets/images/ExplosionSpriteSheet.png" },
     { id: "stage1", src: "assets/images/stage1.png" },
     { id: "stage2", src: "assets/images/stage1.png" },

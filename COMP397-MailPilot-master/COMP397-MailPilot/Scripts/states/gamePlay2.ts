@@ -155,6 +155,7 @@ module states {
         public scoreboard: objects.ScoreBoard;
         public plane: objects.Plane;
         public enemyPlane1: objects.EnemyPlane1;
+        public enemyPlane2: objects.EnemyPlane2;
         public island: objects.Island;
         public rocket: objects.Rocket[] = [];
         public powerPlanet: objects.PowerPlanet;
@@ -208,6 +209,10 @@ module states {
             //Enemy plane 1 object
             this.enemyPlane1 = new objects.EnemyPlane1();
             this.game.addChild(this.enemyPlane1);
+
+            //Enemy plane 2 object
+            this.enemyPlane2 = new objects.EnemyPlane2();
+            this.game.addChild(this.enemyPlane2);
 
             // Instantiate Scoreboard
             this.scoreboard = new objects.ScoreBoard(this.game, currentScore, lives);
@@ -289,7 +294,7 @@ module states {
 
             if (this.scoreboard.active) {
                 for (var tmpRocket = 0; tmpRocket < this.rocket.length; tmpRocket++) {
-                    if (this.enemyPlane1.visible) {
+                    if (collider.visible) {
                         var rocketFire: createjs.Point = new createjs.Point(this.rocket[tmpRocket].x, this.rocket[tmpRocket].y);
 
                         var objectPosition: createjs.Point = new createjs.Point(collider.x, collider.y);
@@ -299,7 +304,7 @@ module states {
                                 createjs.Sound.play(collider.sound);
                                 this.scoreboard.score += 200;
                                 //Write code here for collossion of rocket with enemy.
-                                this.enemyPlane1.visible = false;
+                                collider.visible = false;
                                 var explosion = new Explosion(this.explosionImg);
                                 explosion.x = this.rocket[tmpRocket].x;
                                 explosion.y = this.rocket[tmpRocket].y-20;
@@ -318,6 +323,8 @@ module states {
                             collider.isColliding = false;
                         }
                     }
+
+                    
                 }
             }
         } // checkCollisionWithEnemy Method
@@ -388,7 +395,10 @@ module states {
                 }
 
                 this.enemyPlane1.update();
+                this.enemyPlane2.update();
+
                 this.checkCollisionWithEnemy(this.enemyPlane1);
+                this.checkCollisionWithEnemy(this.enemyPlane2);
 
                 this.checkCollision(this.island);
                 this.checkCollision(this.powerPlanet);
@@ -405,7 +415,7 @@ module states {
                     }
                     this.game.removeAllChildren();
                     stage.removeChild(this.game);
-                    currentState = constants.GAME_PLAY_1_OVER;
+                    currentState = constants.GAME_OVER_STATE;
                     stateChanged = true;
                 }
 
