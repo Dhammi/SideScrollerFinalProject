@@ -74,17 +74,17 @@ module objects {
 
                 if (control.down == true && this.y < 450) {
                     console.log("down");
-                    this.y += 3;
+                    this.y += 7;
                 } else if (control.up == true && this.y > 30) {
                     console.log("up");
                     //this.tmpY = this.y;
                     //this.timer = setInterval(function () { this.jump1(this.y) }, 50); 
                     //this.y = this.tmpY;
-                    this.y -= 3;
+                    this.y -= 7;
                 } else if (control.left == true && this.x > 30) {
-                    this.x -= 3;
+                    this.x -= 7;
                 } else if (control.right == true && this.x < 610) {
-                    this.x += 3;
+                    this.x += 7;
                 }
 
 

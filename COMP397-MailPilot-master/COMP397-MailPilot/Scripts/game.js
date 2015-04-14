@@ -24,8 +24,11 @@ var assetLoader;
 var stats = new Stats();
 var currentScore = 0;
 var highScore = 0;
+var lives = 5;
 var gamePlay1Loop = 5;
 var flagStage1 = false;
+var flagStage2 = false;
+var flagStage3 = false;
 // Game State Variables
 var currentState;
 var currentStateFunction;
@@ -41,7 +44,11 @@ var manifest = [
     { id: "island", src: "assets/images/planet.png" },
     { id: "ocean", src: "assets/images/space.png" },
     { id: "rocket", src: "assets/images/rocket.png" },
+    { id: "enemyPlane1", src: "assets/images/enemyPlane1.png" },
+    { id: "explosionOriginal", src: "assets/images/ExplosionSpriteSheet.png" },
     { id: "stage1", src: "assets/images/stage1.png" },
+    { id: "stage2", src: "assets/images/stage1.png" },
+    { id: "stage3", src: "assets/images/stage1.png" },
     { id: "plane", src: "assets/images/playership.png" },
     { id: "playButton", src: "assets/images/playGameButton.png" },
     { id: "tryAgainButton", src: "assets/images/playAgainButton.png" },
@@ -51,7 +58,8 @@ var manifest = [
     { id: "powerPlanet", src: "assets/images/powerPlanet.png" },
     { id: "engine", src: "assets/audio/star.ogg" },
     { id: "yay", src: "assets/audio/powerup.wav" },
-    { id: "thunder", src: "assets/audio/collision.wav" }
+    { id: "thunder", src: "assets/audio/collision.wav" },
+    { id: "blast", src: "assets/audio/Blast.mp3" }
 ];
 function Preload() {
     assetLoader = new createjs.LoadQueue(); // create a new preloader

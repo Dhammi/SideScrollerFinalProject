@@ -1,13 +1,13 @@
 ﻿/// Vineet Dhammi | 300808585 | Last Modified: 20/03/2015 
 
 module objects {
-    // CLOUD CLASS
-    export class Cloud extends objects.GameObject {
+    // ENEMY PLANE CLASS
+    export class EnemyPlane1 extends objects.GameObject {
 
         // CONSTRUCTOR
         constructor() {
-            super("cloud");
-            this.sound = "thunder";
+            super("enemyPlane1");
+            this.sound = "blast";
             this.reset();
         }
 
@@ -15,7 +15,7 @@ module objects {
         public update() {
             this.y += this._dy;
             this.x -= this._dx;
-            
+
             this._checkBounds();
         }
 
@@ -27,7 +27,7 @@ module objects {
             this._dy = Math.floor(Math.random() * 5) + 5;
             this._dx = Math.floor(Math.random() * 4) - 2;
             */
-
+            this.visible = true;
             this.x = 1000 + this.width;
             this.y = Math.floor(Math.random() * 400);
             this._dx = Math.floor(Math.random() * 5) + 5;
@@ -50,4 +50,4 @@ module objects {
 
     }
 
-}  
+}   

@@ -151,12 +151,13 @@ var states;
             this.clouds = [];
             this.flagRocket = false;
             this.shield = false;
+            this.explosions = [];
             // Instantiate Game Container
             this.game = new createjs.Container();
             this.flagRepeat = 0;
-            //Ocean object
-            this.ocean = new objects.Ocean();
-            this.game.addChild(this.ocean);
+            //Stage2 background
+            this.stage2 = new objects.Stage2();
+            this.game.addChild(this.stage2);
             //Island object
             this.island = new objects.Island();
             this.game.addChild(this.island);
@@ -170,8 +171,12 @@ var states;
                 this.clouds[cloud] = new objects.Cloud();
                 this.game.addChild(this.clouds[cloud]);
             }
+            //Enemy plane 1 object
+            this.enemyPlane1 = new objects.EnemyPlane1();
+            this.game.addChild(this.enemyPlane1);
             // Instantiate Scoreboard
-            this.scoreboard = new objects.ScoreBoard(this.game);
+            this.scoreboard = new objects.ScoreBoard(this.game, currentScore, lives);
+            this.explosionImg = assetLoader.getResult('explosionOriginal');
             // Add Game Container to Stage
             stage.addChild(this.game);
             this.assignControls();
@@ -210,19 +215,56 @@ var states;
         }; // checkCollision Method
         // CHECK COLLISION WITH ENEMY METHOD
         GamePlay2.prototype.checkCollisionWithEnemy = function (collider) {
+            /*
             if (this.scoreboard.active) {
-                for (var cloud = 2; cloud >= 0; cloud--) {
-                    var cloudPosition = new createjs.Point(this.clouds[cloud].x, this.clouds[cloud].y);
-                    var objectPosition = new createjs.Point(collider.x, collider.y);
-                    var theDistance = this.distance(cloudPosition, objectPosition);
-                    if (theDistance < ((this.clouds[cloud].height * 0.5) + (collider.height * 0.5))) {
+                //for (var cloud = 2; cloud >= 0; cloud--) {
+                if (this.enemyPlane1.visible) {
+                    var enemy1: createjs.Point = new createjs.Point(this.enemyPlane1.x, this.enemyPlane1.y);
+
+                    var objectPosition: createjs.Point = new createjs.Point(collider.x, collider.y);
+                    var theDistance = this.distance(enemy1, objectPosition);
+                    if (theDistance < ((this.enemyPlane1.height * 0.5) + (collider.height * 0.5))) {
                         if (collider.isColliding != true) {
                             createjs.Sound.play(collider.sound);
+                            //Write code here for collossion of rocket with enemy.
+                            this.enemyPlane1.visible = false;
+                            
                         }
                         collider.isColliding = true;
-                    }
-                    else {
+                    } else {
                         collider.isColliding = false;
+                    }
+                    //}
+                }
+            }
+            */
+            if (this.scoreboard.active) {
+                for (var tmpRocket = 0; tmpRocket < this.rocket.length; tmpRocket++) {
+                    if (this.enemyPlane1.visible) {
+                        var rocketFire = new createjs.Point(this.rocket[tmpRocket].x, this.rocket[tmpRocket].y);
+                        var objectPosition = new createjs.Point(collider.x, collider.y);
+                        var theDistance = this.distance(rocketFire, objectPosition);
+                        if (theDistance < ((this.rocket[tmpRocket].height * 0.5) + (collider.height * 0.5))) {
+                            if (collider.isColliding != true) {
+                                createjs.Sound.play(collider.sound);
+                                this.scoreboard.score += 200;
+                                //Write code here for collossion of rocket with enemy.
+                                this.enemyPlane1.visible = false;
+                                var explosion = new Explosion(this.explosionImg);
+                                explosion.x = this.rocket[tmpRocket].x;
+                                explosion.y = this.rocket[tmpRocket].y - 20;
+                                this.game.removeChild(this.rocket[tmpRocket]);
+                                //var index = this.rocket.indexOf(thtmpRocket);
+                                this.rocket.splice(tmpRocket, 1);
+                                //alert(explosion.x);
+                                this.explosions.push(explosion);
+                                this.game.addChild(explosion);
+                            }
+                            collider.isColliding = true;
+                        }
+                        else {
+                            collider.isColliding = false;
+                        }
                     }
                 }
             }
@@ -240,7 +282,7 @@ var states;
                 stateChanged = true;
             }
             else {
-                this.ocean.update();
+                this.stage2.update();
                 this.island.update();
                 //alert("y" +this.plane.y);
                 //this.bullet.update(this.plane.x,this.plane.y);
@@ -267,16 +309,30 @@ var states;
                 if (this.flagRocket) {
                     for (var i = 0; i < this.rocket.length; i++) {
                         this.rocket[i].update();
-                        this.checkCollisionWithEnemy(this.rocket[i]);
                     }
                 }
                 for (var cloud = 2; cloud >= 0; cloud--) {
                     this.clouds[cloud].update();
                     this.checkCollision(this.clouds[cloud]);
                 }
+                this.enemyPlane1.update();
+                this.checkCollisionWithEnemy(this.enemyPlane1);
                 this.checkCollision(this.island);
                 this.checkCollision(this.powerPlanet);
                 this.scoreboard.update();
+                //stage2 complete
+                if (flagStage2) {
+                    createjs.Sound.stop();
+                    currentScore = this.scoreboard.score;
+                    lives = this.scoreboard.lives;
+                    if (currentScore > highScore) {
+                        highScore = currentScore;
+                    }
+                    this.game.removeAllChildren();
+                    stage.removeChild(this.game);
+                    currentState = constants.GAME_PLAY_1_OVER;
+                    stateChanged = true;
+                }
                 if (this.scoreboard.lives < 1) {
                     this.scoreboard.active = false;
                     createjs.Sound.stop();
@@ -289,9 +345,20 @@ var states;
                     currentState = constants.GAME_OVER_STATE;
                     stateChanged = true;
                 }
+                for (var i = 0; i < this.explosions.length; i++) {
+                    var explosion = this.explosions[i];
+                    if (explosion.currentAnimationFrame == explosion.LastFrame) {
+                        this.removeElement(explosion, this.explosions);
+                    }
+                }
                 stage.update(); // Refreshes our stage
             }
         }; // Update Method
+        GamePlay2.prototype.removeElement = function (el, arr) {
+            this.game.removeChild(el);
+            var index = arr.indexOf(el);
+            arr.splice(index, 1);
+        };
         GamePlay2.prototype.assignControls = function () {
             // Binds key actions
             window.onkeydown = this.onControlDown;
@@ -333,9 +400,9 @@ var states;
         GamePlay2.prototype.timeLoop = function () {
             //alert(this.flagRepeat);
             this.flagRepeat++;
-            alert(this.flagRepeat);
+            //alert(this.flagRepeat);
             if (this.flagRepeat == 1) {
-                alert(this.flagRepeat);
+                //  alert(this.flagRepeat);
                 clearInterval(this.timer);
                 this.flagRepeat = 0;
             }

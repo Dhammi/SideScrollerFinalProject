@@ -3,9 +3,9 @@ var objects;
     // SCOREBOARD CLASS ++++++++++++++++++++++++++++++++++++++++
     var ScoreBoard = (function () {
         // CONSTRUCTOR +++++++++++++++++++++++++++++++++++++++++
-        function ScoreBoard(game) {
-            this.score = 0;
-            this.lives = 5;
+        function ScoreBoard(game, score, lives) {
+            this.score = score;
+            this.lives = lives;
             this.active = true;
             this._livesLabel = new createjs.Text("Lives: ", "40px Consolas", "#ffff00");
             game.addChild(this._livesLabel);

@@ -15,7 +15,7 @@ var objects;
             this.sound = "yay";
             this._dx = 5;
             this.x = planeX + this.width;
-            this.y = planeY + 20;
+            this.y = planeY;
             //this.reset();
         }
         // PUBLIC METHODS ++++++++++++++++++++++++++++++++++++++++++

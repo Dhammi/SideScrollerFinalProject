@@ -59,10 +59,14 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\audio\Blast.mp3" />
     <Content Include="assets\audio\engine.ogg" />
     <Content Include="assets\audio\thunder.ogg" />
     <Content Include="assets\audio\yay.ogg" />
     <Content Include="assets\images\asteroids.png" />
+    <Content Include="assets\images\enemyPlane1.png" />
+    <Content Include="assets\images\explosionOriginal.png" />
+    <Content Include="assets\images\ExplosionSpriteSheet.png" />
     <Content Include="assets\images\gameOver.png" />
     <Content Include="assets\images\instructions.png" />
     <Content Include="assets\images\instructionsLogo.png" />
@@ -106,6 +110,8 @@
     <TypeScriptCompile Include="Scripts\keys.ts" />
     <TypeScriptCompile Include="Scripts\objects\button.ts" />
     <TypeScriptCompile Include="Scripts\objects\cloud.ts" />
+    <TypeScriptCompile Include="Scripts\objects\enemyPlane1.ts" />
+    <TypeScriptCompile Include="Scripts\objects\explosion.ts" />
     <TypeScriptCompile Include="Scripts\objects\gameobject.ts" />
     <TypeScriptCompile Include="Scripts\objects\island.ts" />
     <TypeScriptCompile Include="Scripts\objects\label.ts" />
@@ -115,6 +121,7 @@
     <TypeScriptCompile Include="Scripts\objects\rocket.ts" />
     <TypeScriptCompile Include="Scripts\objects\scoreboard.ts" />
     <TypeScriptCompile Include="Scripts\objects\stage1.ts" />
+    <TypeScriptCompile Include="Scripts\objects\stage2.ts" />
     <TypeScriptCompile Include="Scripts\states\gameover.ts" />
     <TypeScriptCompile Include="Scripts\states\gameplay1.ts" />
     <TypeScriptCompile Include="Scripts\states\gamePlay1Over.ts" />

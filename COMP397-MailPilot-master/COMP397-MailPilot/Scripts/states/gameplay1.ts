@@ -203,7 +203,7 @@ module states {
 
 
             // Instantiate Scoreboard
-            this.scoreboard = new objects.ScoreBoard(this.game);
+            this.scoreboard = new objects.ScoreBoard(this.game, 0, 3);
 
             // Add Game Container to Stage
             stage.addChild(this.game);
@@ -348,9 +348,11 @@ module states {
             }
             */
 
+            //stage 1 complete
             if (flagStage1) {
                 createjs.Sound.stop();
                 currentScore = this.scoreboard.score;
+                lives = this.scoreboard.lives;
                 if (currentScore > highScore) {
                     highScore = currentScore;
                 }
