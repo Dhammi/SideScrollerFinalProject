@@ -42,6 +42,7 @@ var states;
         } // Constructor
         GameOver.prototype.tryAgainClicked = function () {
             this.tryAgain = true;
+            gamePlay1Loop = 5;
         };
         // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         GameOver.prototype.update = function () {
@@ -49,7 +50,7 @@ var states;
             if (this.tryAgain) {
                 this.game.removeAllChildren();
                 stage.removeChild(this.game);
-                currentState = constants.PLAY_STATE;
+                currentState = constants.GAME_PLAY_1;
                 stateChanged = true;
             }
             stage.update(); // Refreshes our stage

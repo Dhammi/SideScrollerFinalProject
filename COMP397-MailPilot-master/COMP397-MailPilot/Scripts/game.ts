@@ -18,7 +18,7 @@
 /// <reference path="objects/button.ts" />
 /// <reference path="objects/label.ts" />
 
-/// <reference path="states/gameplay.ts" />
+/// <reference path="states/gameplay1.ts" />
 /// <reference path="states/gameover.ts" />
 /// <reference path="states/menu.ts" />
 
@@ -30,6 +30,7 @@ var assetLoader: createjs.LoadQueue;
 var stats: Stats = new Stats();
 var currentScore = 0;
 var highScore = 0;
+var gamePlay1Loop = 5;
 
 
 // Game State Variables
@@ -37,8 +38,9 @@ var currentState: number;
 var currentStateFunction: any;
 var stateChanged: boolean = false;
 
-var gamePlay: states.GamePlay;
+var gamePlay: states.GamePlay1;
 var gameOver: states.GameOver;
+var gamePlay1Over: states.GamePlay1Over;
 var menu: states.Menu;
 var instructions: states.Instructions;
 
@@ -123,9 +125,9 @@ function changeState(state: number): void {
             currentStateFunction = instructions;
             break;
 
-        case constants.PLAY_STATE:
+        case constants.GAME_PLAY_1:
             // instantiate game play screen
-            gamePlay = new states.GamePlay();
+            gamePlay = new states.GamePlay1();
             currentStateFunction = gamePlay;
             break;
 
@@ -133,6 +135,12 @@ function changeState(state: number): void {
             // instantiate game over screen
             gameOver = new states.GameOver();
             currentStateFunction = gameOver;
+            break;
+
+        case constants.GAME_PLAY_1_OVER:
+            // instantiate game over screen
+            gamePlay1Over = new states.GamePlay1Over();
+            currentStateFunction = gamePlay1Over;
             break;
     }
 }

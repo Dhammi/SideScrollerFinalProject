@@ -14,7 +14,7 @@
 /// <reference path="objects/ocean.ts" />
 /// <reference path="objects/button.ts" />
 /// <reference path="objects/label.ts" />
-/// <reference path="states/gameplay.ts" />
+/// <reference path="states/gameplay1.ts" />
 /// <reference path="states/gameover.ts" />
 /// <reference path="states/menu.ts" />
 // Global game Variables
@@ -24,12 +24,14 @@ var assetLoader;
 var stats = new Stats();
 var currentScore = 0;
 var highScore = 0;
+var gamePlay1Loop = 5;
 // Game State Variables
 var currentState;
 var currentStateFunction;
 var stateChanged = false;
 var gamePlay;
 var gameOver;
+var gamePlay1Over;
 var menu;
 var instructions;
 var manifest = [
@@ -94,15 +96,20 @@ function changeState(state) {
             instructions = new states.Instructions();
             currentStateFunction = instructions;
             break;
-        case constants.PLAY_STATE:
+        case constants.GAME_PLAY_1:
             // instantiate game play screen
-            gamePlay = new states.GamePlay();
+            gamePlay = new states.GamePlay1();
             currentStateFunction = gamePlay;
             break;
         case constants.GAME_OVER_STATE:
             // instantiate game over screen
             gameOver = new states.GameOver();
             currentStateFunction = gameOver;
+            break;
+        case constants.GAME_PLAY_1_OVER:
+            // instantiate game over screen
+            gamePlay1Over = new states.GamePlay1Over();
+            currentStateFunction = gamePlay1Over;
             break;
     }
 }

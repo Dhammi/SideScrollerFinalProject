@@ -5,26 +5,85 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
+/*
+module objects {
+    // PLANE CLASS
+    export class Plane extends createjs.Bitmap {
+        public width: number;
+        public height: number;
+        // CONSTRUCTOR
+        constructor() {
+            
+            super(assetLoader.getResult("plane"));
+
+            this.width = this.getBounds().width;
+            this.height = this.getBounds().height;
+
+            this.y = 220;
+            this.x = 100;
+            this.regX = this.width * 0.5;
+            this.regY = this.height * 0.5;
+            createjs.Sound.play("engine", {loop: -1});
+        }
+
+        
+        // PUBLIC METHODS
+        public update() {
+            this.x = stage.mouseX;
+            this.y = stage.mouseY;
+        }
+
+    }
+
+}
+*/
 var objects;
 (function (objects) {
-    // PLANE CLASS
+    // ALLIEN CLASS
     var Plane = (function (_super) {
         __extends(Plane, _super);
+        //public bullet: objects.Bullet;
         // CONSTRUCTOR
         function Plane() {
             _super.call(this, assetLoader.getResult("plane"));
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
-            this.y = 220;
-            this.x = 100;
+            this.x = 35;
+            this.y = 240;
             this.regX = this.width * 0.5;
             this.regY = this.height * 0.5;
-            createjs.Sound.play("engine", { loop: -1 });
+            createjs.Sound.play("soundtrack", { loop: -1 });
+            // Set up movement and controls
+            //this.assignControls();
         }
         // PUBLIC METHODS
-        Plane.prototype.update = function () {
-            this.x = stage.mouseX;
-            this.y = stage.mouseY;
+        Plane.prototype.update = function (control) {
+            // Return if game currently paused
+            //alert(control.down);
+            //this.bullet = tmpBullet;
+            if (constants.MENU_STATE) {
+                this.y = stage.mouseY;
+                this.x = stage.mouseX;
+            }
+            else {
+                if (control.down == true && this.y < 450) {
+                    console.log("down");
+                    this.y += 3;
+                }
+                else if (control.up == true && this.y > 30) {
+                    console.log("up");
+                    //this.tmpY = this.y;
+                    //this.timer = setInterval(function () { this.jump1(this.y) }, 50); 
+                    //this.y = this.tmpY;
+                    this.y -= 3;
+                }
+                else if (control.left == true && this.x > 30) {
+                    this.x -= 3;
+                }
+                else if (control.right == true && this.x < 610) {
+                    this.x += 3;
+                }
+            }
         };
         return Plane;
     })(createjs.Bitmap);

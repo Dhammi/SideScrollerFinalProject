@@ -99,7 +99,9 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\constants.ts" />
+    <TypeScriptCompile Include="Scripts\controls.ts" />
     <TypeScriptCompile Include="Scripts\game.ts" />
+    <TypeScriptCompile Include="Scripts\keys.ts" />
     <TypeScriptCompile Include="Scripts\objects\button.ts" />
     <TypeScriptCompile Include="Scripts\objects\cloud.ts" />
     <TypeScriptCompile Include="Scripts\objects\gameobject.ts" />
@@ -110,7 +112,8 @@
     <TypeScriptCompile Include="Scripts\objects\powerPlanet.ts" />
     <TypeScriptCompile Include="Scripts\objects\scoreboard.ts" />
     <TypeScriptCompile Include="Scripts\states\gameover.ts" />
-    <TypeScriptCompile Include="Scripts\states\gameplay.ts" />
+    <TypeScriptCompile Include="Scripts\states\gameplay1.ts" />
+    <TypeScriptCompile Include="Scripts\states\gamePlay1Over.ts" />
     <TypeScriptCompile Include="Scripts\states\instructions.ts" />
     <TypeScriptCompile Include="Scripts\states\menu.ts" />
     <TypeScriptCompile Include="Scripts\typings\createjs-lib\createjs-lib.d.ts" />
