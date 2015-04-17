@@ -4,17 +4,30 @@ module objects {
     // ENEMY PLANE 2 CLASS
     export class EnemyPlane2 extends objects.GameObject {
 
+        public yFlag: boolean;
+
         // CONSTRUCTOR
         constructor() {
             super("enemyPlane2");
             this.sound = "blast";
             this.reset();
+            this.yFlag = false;
         }
 
         // PUBLIC METHODS ++++++++++++++++++++++++++++++++++++++++++
         public update() {
-            this.y += this._dy;
-            this.x -= this._dx;
+            //console.log(this.y);
+            if (this.yFlag) {
+                this.y += 5;
+            } else {
+                this.y -= 5;
+            }
+
+            if (this.y < 50)
+                this.yFlag = true;
+            if (this.y > 380)
+                this.yFlag = false;
+            this.x -= 5;
 
             this._checkBounds();
         }
@@ -28,7 +41,7 @@ module objects {
             this._dx = Math.floor(Math.random() * 4) - 2;
             */
             this.visible = true;
-            this.x = 1000 + this.width;
+            this.x = 1050;
             this.y = Math.floor(Math.random() * 400);
             this._dx = Math.floor(Math.random() * 5) + 5;
 

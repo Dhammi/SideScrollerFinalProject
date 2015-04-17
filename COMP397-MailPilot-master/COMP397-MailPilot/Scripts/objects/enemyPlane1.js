@@ -31,7 +31,7 @@ var objects;
             this._dx = Math.floor(Math.random() * 4) - 2;
             */
             this.visible = true;
-            this.x = 1000 + this.width;
+            this.x = 1050;
             this.y = Math.floor(Math.random() * 400);
             this._dx = Math.floor(Math.random() * 5) + 5;
             this._dy = Math.floor(Math.random() * 5) - 2;

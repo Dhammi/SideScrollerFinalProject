@@ -28,7 +28,7 @@ module objects {
             this._dx = Math.floor(Math.random() * 4) - 2;
             */
 
-            this.x = 1000 + this.width;
+            this.x = 1050;
             this.y = Math.floor(Math.random() * 400);
             this._dx = Math.floor(Math.random() * 5) + 5;
             

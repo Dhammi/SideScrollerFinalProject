@@ -335,7 +335,7 @@ var states;
                     }
                     this.game.removeAllChildren();
                     stage.removeChild(this.game);
-                    currentState = constants.GAME_OVER_STATE;
+                    currentState = constants.GAME_PLAY_2_OVER;
                     stateChanged = true;
                 }
                 if (this.scoreboard.lives < 1) {

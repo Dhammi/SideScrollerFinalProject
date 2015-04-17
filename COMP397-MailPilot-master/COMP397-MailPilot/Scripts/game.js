@@ -37,6 +37,7 @@ var gamePlay1;
 var gamePlay2;
 var gameOver;
 var gamePlay1Over;
+var gamePlay2Over;
 var menu;
 var instructions;
 var manifest = [
@@ -51,12 +52,14 @@ var manifest = [
     { id: "stage2", src: "assets/images/stage1.png" },
     { id: "stage3", src: "assets/images/stage1.png" },
     { id: "plane", src: "assets/images/playership.png" },
-    { id: "playButton", src: "assets/images/playGameButton.png" },
+    { id: "playButton", src: "assets/images/labelPlayGame.png" },
     { id: "tryAgainButton", src: "assets/images/playAgainButton.png" },
-    { id: "instructionsLogo", src: "assets/images/instructionsLogo.png" },
+    { id: "instructionsLogo", src: "assets/images/labelInstructions.png" },
     { id: "instruction", src: "assets/images/instructions.png" },
     { id: "powership", src: "assets/images/powership.png" },
     { id: "powerPlanet", src: "assets/images/powerPlanet.png" },
+    { id: "labelStage2Start", src: "assets/images/labelStage2.png" },
+    { id: "labelStage3Start", src: "assets/images/labelStage3.png" },
     { id: "engine", src: "assets/audio/star.ogg" },
     { id: "yay", src: "assets/audio/powerup.wav" },
     { id: "thunder", src: "assets/audio/collision.wav" },
@@ -125,9 +128,14 @@ function changeState(state) {
             currentStateFunction = gamePlay1Over;
             break;
         case constants.GAME_PLAY_2:
-            // instantiate game over screen
+            // instantiate game play 2 screen
             gamePlay2 = new states.GamePlay2();
             currentStateFunction = gamePlay2;
+            break;
+        case constants.GAME_PLAY_2_OVER:
+            // instantiate game play 2 over screen
+            gamePlay2Over = new states.GamePlay2Over();
+            currentStateFunction = gamePlay2Over;
             break;
     }
 }

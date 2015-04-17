@@ -71,6 +71,10 @@
     <Content Include="assets\images\gameOver.png" />
     <Content Include="assets\images\instructions.png" />
     <Content Include="assets\images\instructionsLogo.png" />
+    <Content Include="assets\images\labelInstructions.png" />
+    <Content Include="assets\images\labelPlayGame.png" />
+    <Content Include="assets\images\labelStage2Finished.png" />
+    <Content Include="assets\images\labelstage3.png" />
     <Content Include="assets\images\logo.png" />
     <Content Include="assets\images\planet.png" />
     <Content Include="assets\images\playAgainButton.png" />
@@ -99,6 +103,10 @@
     <Content Include="Scripts\lib\Stats.js" />
     <Content Include="Scripts\lib\tweenjs-0.6.0.min.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="assets\images\labelGameOver.png" />
+    <Content Include="assets\images\labelPlayAgain.png" />
+    <Content Include="assets\images\labelStage1Finished.png" />
+    <Content Include="assets\images\labelStage2.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +136,7 @@
     <TypeScriptCompile Include="Scripts\states\gameplay1.ts" />
     <TypeScriptCompile Include="Scripts\states\gamePlay1Over.ts" />
     <TypeScriptCompile Include="Scripts\states\gamePlay2.ts" />
+    <TypeScriptCompile Include="Scripts\states\gamePlay2Over.ts" />
     <TypeScriptCompile Include="Scripts\states\instructions.ts" />
     <TypeScriptCompile Include="Scripts\states\menu.ts" />
     <TypeScriptCompile Include="Scripts\typings\createjs-lib\createjs-lib.d.ts" />

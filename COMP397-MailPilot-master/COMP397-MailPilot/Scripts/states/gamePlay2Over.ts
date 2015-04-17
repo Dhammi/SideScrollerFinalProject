@@ -12,8 +12,8 @@
 /// <reference path="../objects/scoreboard.ts" />
 
 module states {
-    // GAME OVER STATE CLASS
-    export class GamePlay1Over {
+    // GAME PLAY 2 OVER STATE CLASS
+    export class GamePlay2Over {
         // Game Objects 
         public game: createjs.Container;
         public ocean: objects.Ocean;
@@ -34,7 +34,7 @@ module states {
             this.game.addChild(this.ocean);
 
             //Game Over Label
-            var gameOverLogo = new createjs.Bitmap("assets/images/labelStage1Finished.png");
+            var gameOverLogo = new createjs.Bitmap("assets/images/labelStage2Finished.png");
             gameOverLogo.x = 282;
             gameOverLogo.y = 30;
             this.game.addChild(gameOverLogo);
@@ -51,7 +51,7 @@ module states {
 
             
             //Try Again Button
-            this.tryAgainButton = new objects.Button(500, 360, "labelStage2Start");
+            this.tryAgainButton = new objects.Button(500, 360, "labelStage3Start");
             this.tryAgainButton.on("click", this.tryAgainClicked, this);
 
             this.game.addChild(this.tryAgainButton);
@@ -83,4 +83,4 @@ module states {
     } // Game Over Class
 
 
-} // States Module 
+} // States Module  

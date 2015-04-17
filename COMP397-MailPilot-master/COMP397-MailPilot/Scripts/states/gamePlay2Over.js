@@ -10,10 +10,10 @@
 /// <reference path="../objects/scoreboard.ts" />
 var states;
 (function (states) {
-    // GAME OVER STATE CLASS
-    var GamePlay1Over = (function () {
+    // GAME PLAY 2 OVER STATE CLASS
+    var GamePlay2Over = (function () {
         // CONSTRUCTOR ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        function GamePlay1Over() {
+        function GamePlay2Over() {
             this.tryAgain = false;
             // Instantiate Game Container
             this.game = new createjs.Container();
@@ -21,7 +21,7 @@ var states;
             this.ocean = new objects.Ocean();
             this.game.addChild(this.ocean);
             //Game Over Label
-            var gameOverLogo = new createjs.Bitmap("assets/images/labelStage1Finished.png");
+            var gameOverLogo = new createjs.Bitmap("assets/images/labelStage2Finished.png");
             gameOverLogo.x = 282;
             gameOverLogo.y = 30;
             this.game.addChild(gameOverLogo);
@@ -34,17 +34,17 @@ var states;
             this.highScoreLabel.color = "red";
             this.game.addChild(this.highScoreLabel);
             //Try Again Button
-            this.tryAgainButton = new objects.Button(500, 360, "labelStage2Start");
+            this.tryAgainButton = new objects.Button(500, 360, "labelStage3Start");
             this.tryAgainButton.on("click", this.tryAgainClicked, this);
             this.game.addChild(this.tryAgainButton);
             // Add Game Container to Stage
             stage.addChild(this.game);
         } // Constructor
-        GamePlay1Over.prototype.tryAgainClicked = function () {
+        GamePlay2Over.prototype.tryAgainClicked = function () {
             this.tryAgain = true;
         };
         // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        GamePlay1Over.prototype.update = function () {
+        GamePlay2Over.prototype.update = function () {
             this.ocean.update();
             if (this.tryAgain) {
                 this.game.removeAllChildren();
@@ -54,8 +54,8 @@ var states;
             }
             stage.update(); // Refreshes our stage
         }; // Update Method
-        return GamePlay1Over;
+        return GamePlay2Over;
     })();
-    states.GamePlay1Over = GamePlay1Over; // Game Over Class
-})(states || (states = {})); // States Module 
-//# sourceMappingURL=gamePlay1Over.js.map
+    states.GamePlay2Over = GamePlay2Over; // Game Over Class
+})(states || (states = {})); // States Module  
+//# sourceMappingURL=gamePlay2Over.js.map

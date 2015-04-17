@@ -48,7 +48,7 @@ var objects;
             _super.call(this, assetLoader.getResult("plane"));
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
-            this.x = 35;
+            this.x = 50;
             this.y = 240;
             this.regX = this.width * 0.5;
             this.regY = this.height * 0.5;
@@ -66,21 +66,21 @@ var objects;
                 this.x = stage.mouseX;
             }
             else {
-                if (control.down == true && this.y < 450) {
-                    console.log("down");
+                if (control.down == true && this.y < 400) {
+                    //console.log("down");
                     this.y += 7;
                 }
                 else if (control.up == true && this.y > 30) {
-                    console.log("up");
+                    //console.log("up");
                     //this.tmpY = this.y;
                     //this.timer = setInterval(function () { this.jump1(this.y) }, 50); 
                     //this.y = this.tmpY;
                     this.y -= 7;
                 }
-                else if (control.left == true && this.x > 30) {
+                else if (control.left == true && this.x > 50) {
                     this.x -= 7;
                 }
-                else if (control.right == true && this.x < 610) {
+                else if (control.right == true && this.x < 600) {
                     this.x += 7;
                 }
             }

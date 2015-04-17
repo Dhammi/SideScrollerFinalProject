@@ -332,6 +332,7 @@ module states {
 
 
         public update() {
+
             if (gamePlay1Loop == 0) {
                 createjs.Sound.stop();
                 currentScore = this.scoreboard.score;
@@ -415,7 +416,7 @@ module states {
                     }
                     this.game.removeAllChildren();
                     stage.removeChild(this.game);
-                    currentState = constants.GAME_OVER_STATE;
+                    currentState = constants.GAME_PLAY_2_OVER;
                     stateChanged = true;
                 }
 
