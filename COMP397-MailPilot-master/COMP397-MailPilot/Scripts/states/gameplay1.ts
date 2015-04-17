@@ -103,8 +103,11 @@ module states {
             this.island.update();
 
             this.powerPlanet.update();
-
-            this.plane.update();
+            
+            if(flagNewPlane)
+                this.plane.updateNewPlane();
+            else
+                this.plane.update();
 
             for (var cloud = 2; cloud >= 0; cloud--) {
                 this.clouds[cloud].update();
@@ -160,9 +163,14 @@ module states {
         public clouds: objects.Cloud[] = [];
         public stage1: objects.Stage1;
         public flagBullet: boolean = false;
-        public shield: boolean = false;
+        public flagShield: boolean = false;
         public flagRepeat: number;
         public timer: number;
+        public explosions: Explosion[] = [];
+        public explosionImg: HTMLImageElement;
+
+        //public shield: Shield;
+        //public shieldImg: HTMLImageElement;
 
         constructor() {
             // Instantiate Game Container
@@ -187,6 +195,13 @@ module states {
             //Plane object
             this.plane = new objects.Plane();
             this.game.addChild(this.plane);
+
+            //this.shield = new Shield(this.shieldImg);
+            //this.shield.x = this.plane.x;
+            //this.shield.y = this.plane.y;
+            //alert(this.shield.x);
+            //this.game.addChild(this.shield);
+
             /*
             //Bullet object
             this.bullet = new objects.Bullet();
@@ -200,10 +215,11 @@ module states {
                 this.game.addChild(this.clouds[cloud]);
             }
             
-
-
             // Instantiate Scoreboard
             this.scoreboard = new objects.ScoreBoard(this.game, 0, 3);
+
+            this.explosionImg = <HTMLImageElement> assetLoader.getResult('explosionOriginal');
+            //this.shieldImg = <HTMLImageElement> assetLoader.getResult('shieldSpriteSheet');
 
             // Add Game Container to Stage
             stage.addChild(this.game);
@@ -226,19 +242,39 @@ module states {
                 var theDistance = this.distance(planePosition, objectPosition);
                 if (theDistance < ((this.plane.height * 0.5) + (collider.height * 0.5))) {
                     if (collider.isColliding != true) {
-                        createjs.Sound.play(collider.sound);
+                        
                         if (collider.name == "cloud") {
-                            this.scoreboard.lives--;
+                            if (flagPower)
+                                flagPower = false;
+                            else {
+                                createjs.Sound.play(collider.sound);
+                                this.scoreboard.lives--;
+                                
+                                //show explosion
+                                //alert("");
+                                
+                                var explosion = new Explosion(this.explosionImg);
+                                explosion.x = this.plane.x;
+                                explosion.y = this.plane.y;
+                                this.plane.reset();
+     
+                                //alert(explosion.x);
+                                this.explosions.push(explosion);
+                                this.game.addChild(explosion);
+                            }
                         }
 
                         if (collider.name == "island") {
+                            createjs.Sound.play(collider.sound);
                             this.scoreboard.score += 100;
                             this.island.visible = false;
 
                         }
 
                         if (collider.name == "powerPlanet") {
-                            this.scoreboard.lives++;
+                            //this.scoreboard.lives++;
+                            createjs.Sound.play(collider.sound);
+                            flagPower = true;
                             this.powerPlanet.visible = false;
 
                         }
@@ -286,40 +322,13 @@ module states {
 
             this.powerPlanet.update();
 
-            this.plane.update(controls);
+            if (flagNewPlane)
+                this.plane.updateNewPlane();
+            else
+                this.plane.update(controls);
             
-
-            //spacebar firing start
-            /*
-            if (controls.spacebar == true) {
-                if (this.flagRepeat == 0) {
-                    console.log("spacebar");
-                    this.bullet.push(new objects.Bullet(this.plane.x, this.plane.y));
-                    this.game.addChild(this.bullet[this.bullet.length - 1]);
-                    this.flagBullet = true;
- 
-                    this.flagRepeat = 1;
-                }
-                else if (this.flagRepeat > 30) {
-                    this.flagRepeat = 0;
-                }
-                else
-                    this.flagRepeat++;
-            }
- 
-            if (controls.spacebar == false && this.flagRepeat < 30) {
-                this.flagRepeat++;
-            }
- 
-            if (this.flagBullet) {
-                for (var i = 0; i < this.bullet.length; i++) {
-                    this.bullet[i].update();
-                    this.checkCollisionWithEnemy(this.bullet[i]);
-                }
-            }
-            //spacebar firing end
-            */
-            //this.plane.update(this.bullet);
+            //this.shield.x = this.plane.x;
+            //this.shield.y = this.plane.y;
 
             for (var cloud = 2; cloud >= 0; cloud--) {
                 this.clouds[cloud].update();
@@ -327,26 +336,23 @@ module states {
                 this.checkCollision(this.clouds[cloud]);
             }
 
+            for (var i = 0; i < this.explosions.length; i++) {
+                var explosion = this.explosions[i];
+                if (explosion.currentAnimationFrame == explosion.LastFrame) {
+                    this.removeElement(explosion, this.explosions);
+                }
+            }
 
+            //if (this.shield.currentAnimationFrame == this.shield.LastFrame) {
+            //    this.removeShield(this.shield);
+            //}
 
             this.checkCollision(this.island);
             this.checkCollision(this.powerPlanet);
 
 
             this.scoreboard.update();
-            /*
-            if (this.scoreboard.score == 200) {
-                createjs.Sound.stop();
-                currentScore = this.scoreboard.score;
-                if (currentScore > highScore) {
-                    highScore = currentScore;
-                }
-                this.game.removeAllChildren();
-                stage.removeChild(this.game);
-                currentState = constants.GAME_PLAY_1_OVER;
-                stateChanged = true;
-            }
-            */
+            
 
             //stage 1 complete
             if (flagStage1) {
@@ -379,7 +385,15 @@ module states {
         
         } // Update Method
 
+        private removeElement(el: any, arr: any[]) {
+            this.game.removeChild(el);
+            var index = arr.indexOf(el);
+            arr.splice(index, 1);
+        }
 
+        private removeShield(el: any) {
+            this.game.removeChild(el);
+        }
 
         assignControls() {
             // Binds key actions

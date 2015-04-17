@@ -29,6 +29,8 @@ var gamePlay1Loop = 5;
 var flagStage1 = false;
 var flagStage2 = false;
 var flagStage3 = false;
+var flagNewPlane = true;
+var flagPower = true;
 // Game State Variables
 var currentState;
 var currentStateFunction;
@@ -49,6 +51,7 @@ var manifest = [
     { id: "enemyPlane1", src: "assets/images/enemyPlane1.png" },
     { id: "enemyPlane2", src: "assets/images/enemyPlane2.png" },
     { id: "explosionOriginal", src: "assets/images/ExplosionSpriteSheet.png" },
+    { id: "shieldSpriteSheet", src: "assets/images/shieldSpriteSheet.png" },
     { id: "stage1", src: "assets/images/stage1.png" },
     { id: "stage2", src: "assets/images/stage1.png" },
     { id: "stage3", src: "assets/images/stage1.png" },

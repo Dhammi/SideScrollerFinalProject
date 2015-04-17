@@ -176,7 +176,7 @@ module states {
             this.game = new createjs.Container();
             
             this.flagRepeat = 0;
-            
+            //flagNewPlane = true;
             
             //Stage2 background
             this.stage2 = new objects.Stage2();
@@ -240,22 +240,81 @@ module states {
                 var theDistance = this.distance(planePosition, objectPosition);
                 if (theDistance < ((this.plane.height * 0.5) + (collider.height * 0.5))) {
                     if (collider.isColliding != true) {
-                        createjs.Sound.play(collider.sound);
+                        
+
                         if (collider.name == "cloud") {
-                            this.scoreboard.lives--;
+                            if (flagPower)
+                                flagPower = false;
+                            else {
+                                createjs.Sound.play(collider.sound);
+                                this.scoreboard.lives--;
+                                
+                                //show explosion
+                                //alert("");
+                                
+                                var explosion = new Explosion(this.explosionImg);
+                                explosion.x = this.plane.x;
+                                explosion.y = this.plane.y;
+                                this.plane.reset();
+     
+                                //alert(explosion.x);
+                                this.explosions.push(explosion);
+                                this.game.addChild(explosion);
+                            }
                         }
+                        
 
                         if (collider.name == "island") {
+                            createjs.Sound.play(collider.sound);
                             this.scoreboard.score += 100;
                             this.island.visible = false;
 
                         }
 
                         if (collider.name == "powerPlanet") {
-                            this.scoreboard.lives++;
+                            createjs.Sound.play(collider.sound);
+                            flagPower = true;
                             this.powerPlanet.visible = false;
 
                         }
+
+                        if (collider.name == "enemyPlane1" && this.enemyPlane1.visible) {
+                            if (flagPower)
+                                flagPower = false;
+                            else {
+                                createjs.Sound.play(collider.sound);
+                                //show explosion
+                            
+                                this.scoreboard.lives--;
+                                var explosion = new Explosion(this.explosionImg);
+                                explosion.x = this.plane.x;
+                                explosion.y = this.plane.y;
+                                this.enemyPlane1.visible = false;
+                                this.plane.reset();
+
+                                this.explosions.push(explosion);
+                                this.game.addChild(explosion);
+                            }
+                        }
+
+                        if (collider.name == "enemyPlane2" && this.enemyPlane2.visible) {
+                            if (flagPower)
+                                flagPower = false;
+                            else {
+                                //show explosion
+                                createjs.Sound.play(collider.sound);
+                                this.scoreboard.lives--;
+                                var explosion = new Explosion(this.explosionImg);
+                                explosion.x = this.plane.x;
+                                explosion.y = this.plane.y;
+                                this.enemyPlane2.visible = false;
+                                this.plane.reset();
+
+                                this.explosions.push(explosion);
+                                this.game.addChild(explosion);
+                            }
+                        }
+
                     }
                     collider.isColliding = true;
                 } else {
@@ -324,8 +383,6 @@ module states {
                             collider.isColliding = false;
                         }
                     }
-
-                    
                 }
             }
         } // checkCollisionWithEnemy Method
@@ -354,9 +411,11 @@ module states {
 
                 this.powerPlanet.update();
 
-                this.plane.update(controls);
+                if (flagNewPlane)
+                    this.plane.updateNewPlane();
+                else
+                    this.plane.update(controls);
             
-
                 //spacebar firing start
                 
                 if (controls.spacebar == true) {
@@ -421,7 +480,8 @@ module states {
 
                 this.checkCollision(this.island);
                 this.checkCollision(this.powerPlanet);
-
+                this.checkCollision(this.enemyPlane1);
+                this.checkCollision(this.enemyPlane2);
 
                 this.scoreboard.update();
                 //stage2 complete
@@ -450,6 +510,7 @@ module states {
                     currentState = constants.GAME_OVER_STATE;
                     stateChanged = true;
                 }
+
 
                 for (var i = 0; i < this.explosions.length;i++) {
                     var explosion = this.explosions[i];

@@ -51,12 +51,13 @@ module objects {
             this.width = this.getBounds().width;
             this.height = this.getBounds().height;
 
-            this.x = 50;
-            this.y = 240;
+            //this.x = 50;
+            //this.y = 240;
             this.regX = this.width * 0.5;
             this.regY = this.height * 0.5;
             createjs.Sound.play("soundtrack", { loop: -1 });
 
+            this.reset();
             // Set up movement and controls
             //this.assignControls();
         }
@@ -96,7 +97,24 @@ module objects {
             }
         }
 
+        public reset() {
+            // reset plane after colliding with enemy
+            this.visible = true;
+            this.x = -100;
+            this.y = 240;
+            flagPower = true;
+            flagNewPlane = true;
+            this.updateNewPlane();
+        }
 
+        public updateNewPlane() {
+            this.x += 5;
+            if (this.x > 100) {
+                flagNewPlane = false;
+            }
+        }
+
+        
 
         /*
         jump1(P) {

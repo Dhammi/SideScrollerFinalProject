@@ -102,8 +102,11 @@ module states {
             this.island.update();
 
             this.powerPlanet.update();
-
-            this.plane.update();
+            
+            if(flagNewPlane)
+                this.plane.updateNewPlane();
+            else
+                this.plane.update();
 
             for (var cloud = 2; cloud >= 0; cloud--) {
                 this.clouds[cloud].update();
@@ -146,10 +149,13 @@ module states {
 var states;
 (function (states) {
     var GamePlay1 = (function () {
+        //public shield: Shield;
+        //public shieldImg: HTMLImageElement;
         function GamePlay1() {
             this.clouds = [];
             this.flagBullet = false;
-            this.shield = false;
+            this.flagShield = false;
+            this.explosions = [];
             // Instantiate Game Container
             this.game = new createjs.Container();
             this.flagRepeat = 0;
@@ -171,6 +177,8 @@ var states;
             }
             // Instantiate Scoreboard
             this.scoreboard = new objects.ScoreBoard(this.game, 0, 3);
+            this.explosionImg = assetLoader.getResult('explosionOriginal');
+            //this.shieldImg = <HTMLImageElement> assetLoader.getResult('shieldSpriteSheet');
             // Add Game Container to Stage
             stage.addChild(this.game);
             this.assignControls();
@@ -187,16 +195,32 @@ var states;
                 var theDistance = this.distance(planePosition, objectPosition);
                 if (theDistance < ((this.plane.height * 0.5) + (collider.height * 0.5))) {
                     if (collider.isColliding != true) {
-                        createjs.Sound.play(collider.sound);
                         if (collider.name == "cloud") {
-                            this.scoreboard.lives--;
+                            if (flagPower)
+                                flagPower = false;
+                            else {
+                                createjs.Sound.play(collider.sound);
+                                this.scoreboard.lives--;
+                                //show explosion
+                                //alert("");
+                                var explosion = new Explosion(this.explosionImg);
+                                explosion.x = this.plane.x;
+                                explosion.y = this.plane.y;
+                                this.plane.reset();
+                                //alert(explosion.x);
+                                this.explosions.push(explosion);
+                                this.game.addChild(explosion);
+                            }
                         }
                         if (collider.name == "island") {
+                            createjs.Sound.play(collider.sound);
                             this.scoreboard.score += 100;
                             this.island.visible = false;
                         }
                         if (collider.name == "powerPlanet") {
-                            this.scoreboard.lives++;
+                            //this.scoreboard.lives++;
+                            createjs.Sound.play(collider.sound);
+                            flagPower = true;
                             this.powerPlanet.visible = false;
                         }
                     }
@@ -232,27 +256,26 @@ var states;
             //alert("y" +this.plane.y);
             //this.bullet.update(this.plane.x,this.plane.y);
             this.powerPlanet.update();
-            this.plane.update(controls);
+            if (flagNewPlane)
+                this.plane.updateNewPlane();
+            else
+                this.plane.update(controls);
             for (var cloud = 2; cloud >= 0; cloud--) {
                 this.clouds[cloud].update();
                 this.checkCollision(this.clouds[cloud]);
             }
+            for (var i = 0; i < this.explosions.length; i++) {
+                var explosion = this.explosions[i];
+                if (explosion.currentAnimationFrame == explosion.LastFrame) {
+                    this.removeElement(explosion, this.explosions);
+                }
+            }
+            //if (this.shield.currentAnimationFrame == this.shield.LastFrame) {
+            //    this.removeShield(this.shield);
+            //}
             this.checkCollision(this.island);
             this.checkCollision(this.powerPlanet);
             this.scoreboard.update();
-            /*
-            if (this.scoreboard.score == 200) {
-                createjs.Sound.stop();
-                currentScore = this.scoreboard.score;
-                if (currentScore > highScore) {
-                    highScore = currentScore;
-                }
-                this.game.removeAllChildren();
-                stage.removeChild(this.game);
-                currentState = constants.GAME_PLAY_1_OVER;
-                stateChanged = true;
-            }
-            */
             //stage 1 complete
             if (flagStage1) {
                 createjs.Sound.stop();
@@ -280,6 +303,14 @@ var states;
             }
             stage.update(); // Refreshes our stage
         }; // Update Method
+        GamePlay1.prototype.removeElement = function (el, arr) {
+            this.game.removeChild(el);
+            var index = arr.indexOf(el);
+            arr.splice(index, 1);
+        };
+        GamePlay1.prototype.removeShield = function (el) {
+            this.game.removeChild(el);
+        };
         GamePlay1.prototype.assignControls = function () {
             // Binds key actions
             window.onkeydown = this.onControlDown;
