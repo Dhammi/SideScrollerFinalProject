@@ -18,9 +18,9 @@ module objects {
         public update() {
             //console.log(this.y);
             if (this.yFlag) {
-                this.y += 5;
+                this.y += 3;
             } else {
-                this.y -= 5;
+                this.y -= 3;
             }
 
             if (this.y < 50)

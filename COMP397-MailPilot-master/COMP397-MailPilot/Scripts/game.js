@@ -45,6 +45,7 @@ var manifest = [
     { id: "island", src: "assets/images/planet.png" },
     { id: "ocean", src: "assets/images/space.png" },
     { id: "rocket", src: "assets/images/rocket.png" },
+    { id: "enemyRocket", src: "assets/images/enemyRocket.png" },
     { id: "enemyPlane1", src: "assets/images/enemyPlane1.png" },
     { id: "enemyPlane2", src: "assets/images/enemyPlane2.png" },
     { id: "explosionOriginal", src: "assets/images/ExplosionSpriteSheet.png" },

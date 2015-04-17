@@ -148,6 +148,7 @@ var states;
     var GamePlay2 = (function () {
         function GamePlay2() {
             this.rocket = [];
+            this.enemyRocket = [];
             this.clouds = [];
             this.flagRocket = false;
             this.shield = false;
@@ -313,6 +314,17 @@ var states;
                     for (var i = 0; i < this.rocket.length; i++) {
                         this.rocket[i].update();
                     }
+                }
+                //enemy rocket firing at random number
+                if (this.enemyPlane2.visible) {
+                    var x = Math.floor((Math.random() * 100) + 1);
+                    if (x == 1) {
+                        this.enemyRocket.push(new objects.EnemyRocket(this.enemyPlane2.x, this.enemyPlane2.y));
+                        this.game.addChild(this.enemyRocket[this.enemyRocket.length - 1]);
+                    }
+                }
+                for (var i = 0; i < this.enemyRocket.length; i++) {
+                    this.enemyRocket[i].update();
                 }
                 for (var cloud = 2; cloud >= 0; cloud--) {
                     this.clouds[cloud].update();

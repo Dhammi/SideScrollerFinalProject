@@ -66,6 +66,7 @@
     <Content Include="assets\images\asteroids.png" />
     <Content Include="assets\images\enemyPlane1.png" />
     <Content Include="assets\images\enemyPlane2.png" />
+    <Content Include="assets\images\enemyRocket.png" />
     <Content Include="assets\images\explosionOriginal.png" />
     <Content Include="assets\images\ExplosionSpriteSheet.png" />
     <Content Include="assets\images\gameOver.png" />
@@ -121,6 +122,7 @@
     <TypeScriptCompile Include="Scripts\objects\cloud.ts" />
     <TypeScriptCompile Include="Scripts\objects\enemyPlane1.ts" />
     <TypeScriptCompile Include="Scripts\objects\enemyPlane2.ts" />
+    <TypeScriptCompile Include="Scripts\objects\enemyRocket.ts" />
     <TypeScriptCompile Include="Scripts\objects\explosion.ts" />
     <TypeScriptCompile Include="Scripts\objects\gameobject.ts" />
     <TypeScriptCompile Include="Scripts\objects\island.ts" />

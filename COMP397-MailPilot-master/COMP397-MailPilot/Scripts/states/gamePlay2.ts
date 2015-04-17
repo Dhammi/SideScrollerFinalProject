@@ -158,6 +158,7 @@ module states {
         public enemyPlane2: objects.EnemyPlane2;
         public island: objects.Island;
         public rocket: objects.Rocket[] = [];
+        public enemyRocket: objects.EnemyRocket[] = [];
         public powerPlanet: objects.PowerPlanet;
         public clouds: objects.Cloud[] = [];
         public stage2: objects.Stage2;
@@ -385,6 +386,23 @@ module states {
                         //this.checkCollisionWithEnemy(this.rocket[i]);
                     }
                 }
+
+
+                //enemy rocket firing at random number
+                if (this.enemyPlane2.visible) {
+                    var x = Math.floor((Math.random() * 100) + 1);
+                    if (x == 1) {
+                        this.enemyRocket.push(new objects.EnemyRocket(this.enemyPlane2.x, this.enemyPlane2.y));
+                        this.game.addChild(this.enemyRocket[this.enemyRocket.length - 1]);
+                    }
+                }
+
+                for (var i = 0; i < this.enemyRocket.length; i++) {
+                    this.enemyRocket[i].update();
+                    //this.checkCollisionWithEnemy(this.rocket[i]);
+                }
+
+
                 //spacebar firing end
                 
                 //this.plane.update(this.bullet);
