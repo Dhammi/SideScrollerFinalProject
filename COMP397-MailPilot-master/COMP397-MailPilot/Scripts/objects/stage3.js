@@ -20,8 +20,10 @@ var objects;
         }
         // PUBLIC METHODS ++++++++++++++++++++++++++++++++++++++++++
         Stage3.prototype.update = function () {
-            this.x -= this._dx;
-            this._checkBounds();
+            if (!flagStage3) {
+                this.x -= this._dx;
+                this._checkBounds();
+            }
         };
         // Reset position of island to the top
         Stage3.prototype.reset = function () {
@@ -31,9 +33,10 @@ var objects;
         // PRIVATE METHODS +++++++++++++++++++++++++++++++++++++++++
         Stage3.prototype._checkBounds = function () {
             // check if island has left the bottom of the screen
-            if (this.x == -8000) {
+            if (this.x == -1000) {
                 //this.reset();
                 flagStage3 = true;
+                flagBoss = true;
             }
         };
         return Stage3;

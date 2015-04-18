@@ -8,142 +8,8 @@
 /// <reference path="../objects/cloud.ts" />
 /// <reference path="../objects/scoreboard.ts" />
 /// <reference path="../objects/label.ts" />
-/*
-module states {
-
-    export class GamePlay1 {
-        // Game Objects 
-        public game: createjs.Container;
-        public scoreboard: objects.ScoreBoard;
-        public plane: objects.Plane;
-        public island: objects.Island;
-        public powerPlanet: objects.PowerPlanet;
-        public clouds: objects.Cloud[] = [];
-        public ocean: objects.Ocean;
-
-        public shield: boolean = false;
-
-        constructor() {
-            // Instantiate Game Container
-            this.game = new createjs.Container();
 
 
-            //Ocean object
-            this.ocean = new objects.Ocean();
-            this.game.addChild(this.ocean);
-
-            //Island object
-            this.island = new objects.Island();
-            this.game.addChild(this.island);
-
-            //power planet object
-            this.powerPlanet = new objects.PowerPlanet();
-            this.game.addChild(this.powerPlanet);
-
-            //Plane object
-            this.plane = new objects.Plane();
-            this.game.addChild(this.plane);
-
-            //Cloud object
-            for (var cloud = 2; cloud >= 0; cloud--) {
-                this.clouds[cloud] = new objects.Cloud();
-                this.game.addChild(this.clouds[cloud]);
-            }
-            
-
-
-            // Instantiate Scoreboard
-            this.scoreboard = new objects.ScoreBoard(this.game);
-
-            // Add Game Container to Stage
-            stage.addChild(this.game);
-        } // Constructor
-
-
-        // DISTANCE CHECKING METHOD
-        public distance(p1: createjs.Point, p2: createjs.Point): number {
-            return Math.floor(Math.sqrt(Math.pow((p2.x - p1.x), 2) + Math.pow((p2.y - p1.y), 2)));
-        } //Distance Method
-
-        // CHECK COLLISION METHOD
-        public checkCollision(collider: objects.GameObject) {
-            if (this.scoreboard.active) {
-                var planePosition: createjs.Point = new createjs.Point(this.plane.x, this.plane.y);
-                var objectPosition: createjs.Point = new createjs.Point(collider.x, collider.y);
-                var theDistance = this.distance(planePosition, objectPosition);
-                if (theDistance < ((this.plane.height * 0.5) + (collider.height * 0.5))) {
-                    if (collider.isColliding != true) {
-                        createjs.Sound.play(collider.sound);
-                        if (collider.name == "cloud") {
-                            this.scoreboard.lives--;
-                        }
-                        if (collider.name == "island") {
-                            this.scoreboard.score += 100;
-                            this.island.visible = false;
-                            
-                        }
-
-                        if (collider.name == "powerPlanet") {
-                            this.scoreboard.lives++;
-                            this.powerPlanet.visible = false;
-
-                        }
-                    }
-                    collider.isColliding = true;
-                } else {
-                    collider.isColliding = false;
-                }
-            }
-        } // checkCollision Method
-
-        public update() {
-
-            this.ocean.update();
-
-            this.island.update();
-
-            this.powerPlanet.update();
-
-            this.plane.update();
-
-            for (var cloud = 2; cloud >= 0; cloud--) {
-                this.clouds[cloud].update();
-
-                this.checkCollision(this.clouds[cloud]);
-            }
-
-
-
-            this.checkCollision(this.island);
-            this.checkCollision(this.powerPlanet);
-
-            this.scoreboard.update();
-
-            if (this.scoreboard.lives < 1) {
-                this.scoreboard.active = false;
-                createjs.Sound.stop();
-                currentScore = this.scoreboard.score;
-                if (currentScore > highScore) {
-                    highScore = currentScore;
-                }
-                this.game.removeAllChildren();
-                stage.removeChild(this.game);
-                currentState = constants.GAME_OVER_STATE;
-                stateChanged = true;
-            }
-
-            stage.update(); // Refreshes our stage
-
-        } // Update Method
-
-    } // GamePlay Class
-
-
-} // States Module
-
-
-
-*/
 
 
 
@@ -162,7 +28,7 @@ module states {
         public powerPlanet: objects.PowerPlanet;
         public clouds: objects.Cloud[] = [];
         public stage2: objects.Stage2;
-        public flagRocket: boolean = false;
+        public flagRocket: boolean = false; //used to set delay between 2 rockets
         public shield: boolean = false;
         public flagRepeat: number;
         public timer: number;
@@ -233,6 +99,7 @@ module states {
 
         // CHECK COLLISION METHOD
         public checkCollision(collider: objects.GameObject) {
+            
             if (this.scoreboard.active) {
                 var planePosition: createjs.Point = new createjs.Point(this.plane.x, this.plane.y);
 
@@ -314,7 +181,6 @@ module states {
                                 this.game.addChild(explosion);
                             }
                         }
-
                     }
                     collider.isColliding = true;
                 } else {
@@ -326,32 +192,8 @@ module states {
 
 
 
-        // CHECK COLLISION WITH ENEMY METHOD
-        public checkCollisionWithEnemy(collider: objects.GameObject) {
-            /*
-            if (this.scoreboard.active) {
-                //for (var cloud = 2; cloud >= 0; cloud--) {
-                if (this.enemyPlane1.visible) {
-                    var enemy1: createjs.Point = new createjs.Point(this.enemyPlane1.x, this.enemyPlane1.y);
-
-                    var objectPosition: createjs.Point = new createjs.Point(collider.x, collider.y);
-                    var theDistance = this.distance(enemy1, objectPosition);
-                    if (theDistance < ((this.enemyPlane1.height * 0.5) + (collider.height * 0.5))) {
-                        if (collider.isColliding != true) {
-                            createjs.Sound.play(collider.sound);
-                            //Write code here for collossion of rocket with enemy.
-                            this.enemyPlane1.visible = false;
-                            
-                        }
-                        collider.isColliding = true;
-                    } else {
-                        collider.isColliding = false;
-                    }
-                    //}
-                }
-            }
-            */
-
+        // CHECK COLLISION OF ROCKET WITH ENEMY PLANE METHOD
+        public checkRocketCollisionWithEnemyPlane(collider: objects.GameObject) {
             if (this.scoreboard.active) {
                 for (var tmpRocket = 0; tmpRocket < this.rocket.length; tmpRocket++) {
                     if (collider.visible) {
@@ -367,7 +209,7 @@ module states {
                                 collider.visible = false;
                                 var explosion = new Explosion(this.explosionImg);
                                 explosion.x = this.rocket[tmpRocket].x;
-                                explosion.y = this.rocket[tmpRocket].y-20;
+                                explosion.y = this.rocket[tmpRocket].y - 20;
                                 this.game.removeChild(this.rocket[tmpRocket]);
                                 //var index = this.rocket.indexOf(thtmpRocket);
                                 this.rocket.splice(tmpRocket, 1);
@@ -376,7 +218,52 @@ module states {
                                 //alert(explosion.x);
                                 this.explosions.push(explosion);
                                 this.game.addChild(explosion);
-                                
+
+                            }
+                            collider.isColliding = true;
+                        } else {
+                            collider.isColliding = false;
+                        }
+                    }
+                }
+            }
+
+
+
+            
+        } // checkCollision of rocket With Enemy plane Method
+
+
+        // CHECK PLANE COLLISION OF WITH ENEMY ROCKET METHOD
+        public checkPlaneCollisionWithEnemyRocket(collider: objects.GameObject) {
+            if (this.scoreboard.active) {
+                for (var tmpRocket = 0; tmpRocket < this.enemyRocket.length; tmpRocket++) {
+                    if (collider.visible) {
+                        var rocketFire: createjs.Point = new createjs.Point(this.enemyRocket[tmpRocket].x, this.enemyRocket[tmpRocket].y);
+
+                        var objectPosition: createjs.Point = new createjs.Point(collider.x, collider.y);
+                        var theDistance = this.distance(rocketFire, objectPosition);
+                        if (theDistance < ((this.enemyRocket[tmpRocket].height * 0.5) + (collider.height * 0.5))) {
+                            if (collider.isColliding != true) {
+                                if (flagPower)
+                                    flagPower = false;
+                                else {
+                                    //show explosion
+                                    createjs.Sound.play(collider.sound);
+                                    this.scoreboard.lives--;
+                                    var explosion = new Explosion(this.explosionImg);
+                                    explosion.x = this.plane.x;
+                                    explosion.y = this.plane.y;
+                                    this.enemyPlane2.visible = false;
+                                    this.plane.reset();
+
+                                    this.game.removeChild(this.enemyRocket[tmpRocket]);
+
+                                    this.enemyRocket.splice(tmpRocket, 1);
+
+                                    this.explosions.push(explosion);
+                                    this.game.addChild(explosion);
+                                }
                             }
                             collider.isColliding = true;
                         } else {
@@ -420,7 +307,7 @@ module states {
                 
                 if (controls.spacebar == true) {
                     if (this.flagRepeat == 0) {
-                        console.log("spacebar");
+                        
                         this.rocket.push(new objects.Rocket(this.plane.x, this.plane.y));
                         this.game.addChild(this.rocket[this.rocket.length - 1]);
                         this.flagRocket = true;
@@ -454,11 +341,15 @@ module states {
                         this.enemyRocket.push(new objects.EnemyRocket(this.enemyPlane2.x, this.enemyPlane2.y));
                         this.game.addChild(this.enemyRocket[this.enemyRocket.length - 1]);
                     }
+                    if (x == 15) {
+                        this.enemyRocket.push(new objects.EnemyRocket(this.enemyPlane1.x, this.enemyPlane1.y));
+                        this.game.addChild(this.enemyRocket[this.enemyRocket.length - 1]);
+                    }
                 }
 
                 for (var i = 0; i < this.enemyRocket.length; i++) {
                     this.enemyRocket[i].update();
-                    //this.checkCollisionWithEnemy(this.rocket[i]);
+                    //this.checkCollision(this.enemyRocket[i]);
                 }
 
 
@@ -475,14 +366,17 @@ module states {
                 this.enemyPlane1.update();
                 this.enemyPlane2.update();
 
-                this.checkCollisionWithEnemy(this.enemyPlane1);
-                this.checkCollisionWithEnemy(this.enemyPlane2);
+                this.checkRocketCollisionWithEnemyPlane(this.enemyPlane1);
+                this.checkRocketCollisionWithEnemyPlane(this.enemyPlane2);
+
+                
+                
 
                 this.checkCollision(this.island);
                 this.checkCollision(this.powerPlanet);
                 this.checkCollision(this.enemyPlane1);
                 this.checkCollision(this.enemyPlane2);
-
+                
                 this.scoreboard.update();
                 //stage2 complete
                 if (flagStage2) {

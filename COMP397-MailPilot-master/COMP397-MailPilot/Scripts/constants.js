@@ -9,6 +9,8 @@ var constants;
     constants.GAME_PLAY_1_OVER = 4;
     constants.GAME_PLAY_2 = 5;
     constants.GAME_PLAY_2_OVER = 6;
+    constants.GAME_PLAY_3 = 7;
+    constants.GAME_PLAY_3_OVER = 8;
     // Game Constants
     constants.CLOUD_NUM = 3;
     constants.LABEL_FONT = "40px Consolas";

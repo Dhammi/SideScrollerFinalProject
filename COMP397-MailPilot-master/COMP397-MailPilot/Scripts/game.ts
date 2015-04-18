@@ -37,7 +37,7 @@ var flagStage2 = false;
 var flagStage3 = false;
 var flagNewPlane = true;
 var flagPower = true;
-
+var flagBoss = false;
 
 // Game State Variables
 var currentState: number;
@@ -46,9 +46,11 @@ var stateChanged: boolean = false;
 
 var gamePlay1: states.GamePlay1;
 var gamePlay2: states.GamePlay2;
+var gamePlay3: states.GamePlay3;
 var gameOver: states.GameOver;
 var gamePlay1Over: states.GamePlay1Over;
 var gamePlay2Over: states.GamePlay2Over;
+var gamePlay3Over: states.GamePlay3Over;
 var menu: states.Menu;
 var instructions: states.Instructions;
 
@@ -61,6 +63,7 @@ var manifest = [
     { id: "enemyRocket", src: "assets/images/enemyRocket.png" },
     { id: "enemyPlane1", src: "assets/images/enemyPlane1.png" },
     { id: "enemyPlane2", src: "assets/images/enemyPlane2.png" },
+    { id: "enemyBoss", src: "assets/images/enemyBoss.png" },
     { id: "explosionOriginal", src: "assets/images/ExplosionSpriteSheet.png" },
     { id: "shieldSpriteSheet", src: "assets/images/shieldSpriteSheet.png" },
     { id: "stage1", src: "assets/images/stage1.png" },
@@ -175,6 +178,18 @@ function changeState(state: number): void {
             // instantiate game play 2 over screen
             gamePlay2Over = new states.GamePlay2Over();
             currentStateFunction = gamePlay2Over;
+            break;
+
+        case constants.GAME_PLAY_3:
+            // instantiate game play 3 screen
+            gamePlay3 = new states.GamePlay3();
+            currentStateFunction = gamePlay3;
+            break;
+
+        case constants.GAME_PLAY_3_OVER:
+            // instantiate game play 3 over screen
+            gamePlay3Over = new states.GamePlay3Over();
+            currentStateFunction = gamePlay3Over;
             break;
     }
 }

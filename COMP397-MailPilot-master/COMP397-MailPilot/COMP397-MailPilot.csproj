@@ -64,6 +64,7 @@
     <Content Include="assets\audio\thunder.ogg" />
     <Content Include="assets\audio\yay.ogg" />
     <Content Include="assets\images\asteroids.png" />
+    <Content Include="assets\images\enemyBoss.png" />
     <Content Include="assets\images\enemyPlane1.png" />
     <Content Include="assets\images\enemyPlane2.png" />
     <Content Include="assets\images\enemyRocket.png" />
@@ -121,6 +122,7 @@
     <TypeScriptCompile Include="Scripts\keys.ts" />
     <TypeScriptCompile Include="Scripts\objects\button.ts" />
     <TypeScriptCompile Include="Scripts\objects\cloud.ts" />
+    <TypeScriptCompile Include="Scripts\objects\enemyBoss.ts" />
     <TypeScriptCompile Include="Scripts\objects\enemyPlane1.ts" />
     <TypeScriptCompile Include="Scripts\objects\enemyPlane2.ts" />
     <TypeScriptCompile Include="Scripts\objects\enemyRocket.ts" />
@@ -136,11 +138,14 @@
     <TypeScriptCompile Include="Scripts\objects\shield.ts" />
     <TypeScriptCompile Include="Scripts\objects\stage1.ts" />
     <TypeScriptCompile Include="Scripts\objects\stage2.ts" />
+    <TypeScriptCompile Include="Scripts\objects\stage3.ts" />
     <TypeScriptCompile Include="Scripts\states\gameover.ts" />
     <TypeScriptCompile Include="Scripts\states\gameplay1.ts" />
     <TypeScriptCompile Include="Scripts\states\gamePlay1Over.ts" />
     <TypeScriptCompile Include="Scripts\states\gamePlay2.ts" />
     <TypeScriptCompile Include="Scripts\states\gamePlay2Over.ts" />
+    <TypeScriptCompile Include="Scripts\states\gamePlay3.ts" />
+    <TypeScriptCompile Include="Scripts\states\gamePlay3Over.ts" />
     <TypeScriptCompile Include="Scripts\states\instructions.ts" />
     <TypeScriptCompile Include="Scripts\states\menu.ts" />
     <TypeScriptCompile Include="Scripts\typings\createjs-lib\createjs-lib.d.ts" />

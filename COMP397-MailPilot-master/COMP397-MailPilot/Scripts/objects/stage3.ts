@@ -15,9 +15,15 @@ module objects {
 
         // PUBLIC METHODS ++++++++++++++++++++++++++++++++++++++++++
         public update() {
-            this.x -= this._dx;
+            
+            if (!flagStage3) //stage 3 not complete
+            {
 
-            this._checkBounds();
+                this.x -= this._dx;
+                this._checkBounds();
+            }
+            
+            
         }
 
         // Reset position of island to the top
@@ -30,9 +36,10 @@ module objects {
         private _checkBounds() {
             // check if island has left the bottom of the screen
             
-            if (this.x == -8000) {
+            if (this.x == -1000) {
                 //this.reset();
                 flagStage3 = true;
+                flagBoss = true;
             }
         }
 
