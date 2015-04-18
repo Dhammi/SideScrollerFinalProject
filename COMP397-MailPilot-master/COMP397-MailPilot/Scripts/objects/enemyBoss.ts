@@ -15,6 +15,7 @@ module objects {
 
         // PUBLIC METHODS ++++++++++++++++++++++++++++++++++++++++++
         public update() {
+            this.visible = true;
             if (this.yFlag) {
                 this.y += 3;
             } else {
@@ -43,6 +44,7 @@ module objects {
             this._dx = Math.floor(Math.random() * 5) + 5;
 
             this._dy = Math.floor(Math.random() * 5) - 2;
+            this.visible = false;
         }
 
         // PRIVATE METHODS +++++++++++++++++++++++++++++++++++++++++

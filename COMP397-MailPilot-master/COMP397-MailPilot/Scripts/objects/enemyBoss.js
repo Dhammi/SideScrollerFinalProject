@@ -19,6 +19,7 @@ var objects;
         }
         // PUBLIC METHODS ++++++++++++++++++++++++++++++++++++++++++
         EnemyBoss.prototype.update = function () {
+            this.visible = true;
             if (this.yFlag) {
                 this.y += 3;
             }
@@ -42,6 +43,7 @@ var objects;
             this.y = Math.floor(Math.random() * 400);
             this._dx = Math.floor(Math.random() * 5) + 5;
             this._dy = Math.floor(Math.random() * 5) - 2;
+            this.visible = false;
         };
         // PRIVATE METHODS +++++++++++++++++++++++++++++++++++++++++
         EnemyBoss.prototype._checkBounds = function () {

@@ -233,12 +233,24 @@ var states;
                     }
                 }
                 for (var cloud = 2; cloud >= 0; cloud--) {
-                    this.game.removeChild(this.clouds[cloud]);
+                    this.clouds[cloud].update();
+                    this.checkCollision(this.clouds[cloud]);
                 }
                 this.checkCollision(this.island);
                 this.checkCollision(this.powerPlanet);
                 //show enemy boss
                 this.enemyBoss.update();
+                if (this.enemyBoss.visible) {
+                    var x = Math.floor((Math.random() * 20) + 1);
+                    if (x == 1) {
+                        this.enemyRocket.push(new objects.EnemyRocket(this.enemyBoss.x, this.enemyBoss.y));
+                        this.game.addChild(this.enemyRocket[this.enemyRocket.length - 1]);
+                    }
+                }
+                for (var i = 0; i < this.enemyRocket.length; i++) {
+                    this.enemyRocket[i].update();
+                }
+                this.scoreboard.update();
                 stage.update();
             }
             else {
@@ -274,8 +286,8 @@ var states;
                     }
                 }
                 //enemy rocket firing at random number
+                var x = Math.floor((Math.random() * 100) + 1);
                 if (this.enemyPlane2.visible) {
-                    var x = Math.floor((Math.random() * 100) + 1);
                     if (x == 1) {
                         this.enemyRocket.push(new objects.EnemyRocket(this.enemyPlane2.x, this.enemyPlane2.y));
                         this.game.addChild(this.enemyRocket[this.enemyRocket.length - 1]);

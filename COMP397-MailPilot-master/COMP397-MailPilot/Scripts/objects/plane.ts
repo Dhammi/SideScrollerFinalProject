@@ -101,7 +101,7 @@ module objects {
             // reset plane after colliding with enemy
             this.visible = true;
             this.x = -100;
-            this.y = 240;
+            this.y = Math.floor(Math.random() * 400);
             flagPower = true;
             flagNewPlane = true;
             this.updateNewPlane();
