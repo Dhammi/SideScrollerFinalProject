@@ -34,24 +34,27 @@ module states {
             this.game.addChild(this.ocean);
 
             //Game Over Label
-            var gameOverLogo = new createjs.Bitmap("assets/images/labelStage2Finished.png");
+            var gameOverLogo = new createjs.Bitmap("assets/images/labelYouWin.png");
             gameOverLogo.x = 282;
             gameOverLogo.y = 30;
             this.game.addChild(gameOverLogo);
 
             //Final Score Label
             this.finalScoreLabel = new objects.Label(475, 150,("FINAL SCORE: " + currentScore));
+            
             this.finalScoreLabel.color = "red";
+            
             this.game.addChild(this.finalScoreLabel);
 
             //High Score Label
             this.highScoreLabel = new objects.Label(475, 230,("HIGH SCORE: " + highScore));
+            
             this.highScoreLabel.color = "red";
             this.game.addChild(this.highScoreLabel);
 
             
             //Try Again Button
-            this.tryAgainButton = new objects.Button(500, 360, "labelStage3Start");
+            this.tryAgainButton = new objects.Button(500, 360, "tryAgainButton");
             this.tryAgainButton.on("click", this.tryAgainClicked, this);
 
             this.game.addChild(this.tryAgainButton);
@@ -72,7 +75,7 @@ module states {
             if (this.tryAgain) {
                 this.game.removeAllChildren();
                 stage.removeChild(this.game);
-                currentState = constants.GAME_PLAY_3_OVER;
+                currentState = constants.MENU_STATE;
                 stateChanged = true;
             }
 

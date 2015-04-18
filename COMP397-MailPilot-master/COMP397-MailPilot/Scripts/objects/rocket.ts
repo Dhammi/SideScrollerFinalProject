@@ -6,7 +6,7 @@
         // CONSTRUCTOR
         constructor(planeX, planeY) {
             super("rocket");
-            this.sound = "yay";
+            this.sound = "blast";
             this._dx = 5;
             this.x = planeX + this.width;
             this.y = planeY ;
@@ -17,6 +17,8 @@
         // PUBLIC METHODS ++++++++++++++++++++++++++++++++++++++++++
         public update() {
             //alert(plane);
+            if (flagStage3)
+                this._dx = 10;
             this.x += this._dx;
             
             //this.planeX = tmpPlaneX;

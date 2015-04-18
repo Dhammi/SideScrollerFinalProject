@@ -31,7 +31,7 @@ var objects;
         // PRIVATE METHODS +++++++++++++++++++++++++++++++++++++++++
         Stage1.prototype._checkBounds = function () {
             // check if island has left the bottom of the screen
-            if (this.x == -100) {
+            if (this.x == -8000) {
                 //this.reset();
                 flagStage1 = true;
             }

@@ -71,7 +71,7 @@ var manifest = [
     { id: "stage3", src: "assets/images/stage1.png" },
     { id: "plane", src: "assets/images/playership.png" },
     { id: "playButton", src: "assets/images/labelPlayGame.png" },
-    { id: "tryAgainButton", src: "assets/images/playAgainButton.png" },
+    { id: "tryAgainButton", src: "assets/images/labelPlayAgain.png" },    
     { id: "instructionsLogo", src: "assets/images/labelInstructions.png" },
     { id: "instruction", src: "assets/images/instructions.png" },
     { id: "powership", src: "assets/images/powership.png" },
@@ -81,6 +81,7 @@ var manifest = [
     { id: "engine", src: "assets/audio/star.ogg" },
     { id: "yay", src: "assets/audio/powerup.wav" },
     { id: "thunder", src: "assets/audio/collision.wav" },
+    { id: "tFont", src: "assets/fonts/TransformersMovie.ttf" },
     { id: "blast", src: "assets/audio/Blast.mp3" }
 ];
 

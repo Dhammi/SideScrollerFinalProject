@@ -228,48 +228,45 @@ module states {
                 }
             }
 
-
-
-            
         } // checkCollision of rocket With Enemy plane Method
 
 
         // CHECK PLANE COLLISION OF WITH ENEMY ROCKET METHOD
-        public checkPlaneCollisionWithEnemyRocket(collider: objects.GameObject) {
+        public checkPlaneCollisionWithEnemyRocket() {
             if (this.scoreboard.active) {
                 for (var tmpRocket = 0; tmpRocket < this.enemyRocket.length; tmpRocket++) {
-                    if (collider.visible) {
-                        var rocketFire: createjs.Point = new createjs.Point(this.enemyRocket[tmpRocket].x, this.enemyRocket[tmpRocket].y);
+                    //if (this.plane.visible) {
+                    var rocketFire: createjs.Point = new createjs.Point(this.enemyRocket[tmpRocket].x, this.enemyRocket[tmpRocket].y);
 
-                        var objectPosition: createjs.Point = new createjs.Point(collider.x, collider.y);
-                        var theDistance = this.distance(rocketFire, objectPosition);
-                        if (theDistance < ((this.enemyRocket[tmpRocket].height * 0.5) + (collider.height * 0.5))) {
-                            if (collider.isColliding != true) {
-                                if (flagPower)
-                                    flagPower = false;
-                                else {
-                                    //show explosion
-                                    createjs.Sound.play(collider.sound);
-                                    this.scoreboard.lives--;
-                                    var explosion = new Explosion(this.explosionImg);
-                                    explosion.x = this.plane.x;
-                                    explosion.y = this.plane.y;
-                                    this.enemyPlane2.visible = false;
-                                    this.plane.reset();
+                    var objectPosition: createjs.Point = new createjs.Point(this.plane.x, this.plane.y);
+                    var theDistance = this.distance(rocketFire, objectPosition);
+                    if (theDistance < ((this.enemyRocket[tmpRocket].height * 0.5) + (this.plane.height * 0.5))) {
+                        if (this.enemyRocket[tmpRocket].isColliding != true) {
+                            if (flagPower)
+                                flagPower = false;
+                            else {
+                                //show explosion
+                                createjs.Sound.play(this.enemyRocket[tmpRocket].sound);
+                                this.scoreboard.lives--;
+                                var explosion = new Explosion(this.explosionImg);
+                                explosion.x = this.plane.x;
+                                explosion.y = this.plane.y;
+                                //this.enemyPlane2.visible = false;
+                                    
 
-                                    this.game.removeChild(this.enemyRocket[tmpRocket]);
+                                this.game.removeChild(this.enemyRocket[tmpRocket]);
 
-                                    this.enemyRocket.splice(tmpRocket, 1);
-
-                                    this.explosions.push(explosion);
-                                    this.game.addChild(explosion);
-                                }
+                                this.enemyRocket.splice(tmpRocket, 1);
+                                this.plane.reset();
+                                this.explosions.push(explosion);
+                                this.game.addChild(explosion);
                             }
-                            collider.isColliding = true;
-                        } else {
-                            collider.isColliding = false;
                         }
+                        this.enemyRocket[tmpRocket].isColliding = true;
+                    } else {
+                        this.enemyRocket[tmpRocket].isColliding = false;
                     }
+                    //}
                 }
             }
         } // checkCollisionWithEnemy Method
@@ -370,7 +367,7 @@ module states {
                 this.checkRocketCollisionWithEnemyPlane(this.enemyPlane2);
 
                 
-                
+                this.checkPlaneCollisionWithEnemyRocket();    
 
                 this.checkCollision(this.island);
                 this.checkCollision(this.powerPlanet);

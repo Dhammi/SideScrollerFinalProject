@@ -21,7 +21,7 @@ var states;
             this.ocean = new objects.Ocean();
             this.game.addChild(this.ocean);
             //Game Over Label
-            var gameOverLogo = new createjs.Bitmap("assets/images/labelStage2Finished.png");
+            var gameOverLogo = new createjs.Bitmap("assets/images/labelYouWin.png");
             gameOverLogo.x = 282;
             gameOverLogo.y = 30;
             this.game.addChild(gameOverLogo);
@@ -34,7 +34,7 @@ var states;
             this.highScoreLabel.color = "red";
             this.game.addChild(this.highScoreLabel);
             //Try Again Button
-            this.tryAgainButton = new objects.Button(500, 360, "labelStage3Start");
+            this.tryAgainButton = new objects.Button(500, 360, "tryAgainButton");
             this.tryAgainButton.on("click", this.tryAgainClicked, this);
             this.game.addChild(this.tryAgainButton);
             // Add Game Container to Stage
@@ -49,7 +49,7 @@ var states;
             if (this.tryAgain) {
                 this.game.removeAllChildren();
                 stage.removeChild(this.game);
-                currentState = constants.GAME_PLAY_3_OVER;
+                currentState = constants.MENU_STATE;
                 stateChanged = true;
             }
             stage.update(); // Refreshes our stage

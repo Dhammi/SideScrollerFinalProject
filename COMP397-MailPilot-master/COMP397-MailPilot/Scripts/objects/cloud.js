@@ -13,7 +13,7 @@ var objects;
         // CONSTRUCTOR
         function Cloud() {
             _super.call(this, "cloud");
-            this.sound = "thunder";
+            this.sound = "blast";
             this.reset();
         }
         // PUBLIC METHODS ++++++++++++++++++++++++++++++++++++++++++

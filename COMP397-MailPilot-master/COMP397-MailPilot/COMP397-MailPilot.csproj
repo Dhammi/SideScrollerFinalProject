@@ -77,6 +77,7 @@
     <Content Include="assets\images\labelPlayGame.png" />
     <Content Include="assets\images\labelStage2Finished.png" />
     <Content Include="assets\images\labelstage3.png" />
+    <Content Include="assets\images\labelYouWin.png" />
     <Content Include="assets\images\logo.png" />
     <Content Include="assets\images\planet.png" />
     <Content Include="assets\images\playAgainButton.png" />
@@ -90,6 +91,8 @@
     <Content Include="assets\images\spaceship.png" />
     <Content Include="assets\images\stage1.png" />
     <Content Include="packages.config" />
+    <Content Include="assets\fonts\Transformers Movie.ttf" />
+    <Content Include="assets\audio\star.ogg" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -158,9 +161,7 @@
     <TypeScriptCompile Include="Scripts\typings\webrtc\MediaStream.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\webrtc\RTCPeerConnection.d.ts" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="assets\fonts\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -12,7 +12,7 @@ var objects;
         // CONSTRUCTOR
         function Rocket(planeX, planeY) {
             _super.call(this, "rocket");
-            this.sound = "yay";
+            this.sound = "blast";
             this._dx = 5;
             this.x = planeX + this.width;
             this.y = planeY;
@@ -21,6 +21,8 @@ var objects;
         // PUBLIC METHODS ++++++++++++++++++++++++++++++++++++++++++
         Rocket.prototype.update = function () {
             //alert(plane);
+            if (flagStage3)
+                this._dx = 10;
             this.x += this._dx;
             //this.planeX = tmpPlaneX;
             //this.planeY = tmpPlaneY;

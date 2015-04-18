@@ -41,11 +41,13 @@ module states {
 
             //Final Score Label
             this.finalScoreLabel = new objects.Label(475, 150,("FINAL SCORE: " + currentScore));
+            
             this.finalScoreLabel.color = "red";
             this.game.addChild(this.finalScoreLabel);
 
             //High Score Label
             this.highScoreLabel = new objects.Label(475, 230,("HIGH SCORE: " + highScore));
+            
             this.highScoreLabel.color = "red";
             this.game.addChild(this.highScoreLabel);
 

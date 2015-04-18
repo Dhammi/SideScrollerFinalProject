@@ -19,6 +19,7 @@ var states;
             this.explosions = [];
             // Instantiate Game Container
             this.game = new createjs.Container();
+            this.bossHitCount = 5;
             this.flagRepeat = 0;
             //flagNewPlane = true;
             //Stage2 background
@@ -164,38 +165,69 @@ var states;
                 }
             }
         }; // checkCollision of rocket With Enemy plane Method
-        // CHECK PLANE COLLISION OF WITH ENEMY ROCKET METHOD
-        GamePlay3.prototype.checkPlaneCollisionWithEnemyRocket = function (collider) {
+        // CHECK COLLISION OF ROCKET WITH ENEMY BOSS METHOD
+        GamePlay3.prototype.checkRocketCollisionWithEnemyBoss = function (collider) {
             if (this.scoreboard.active) {
-                for (var tmpRocket = 0; tmpRocket < this.enemyRocket.length; tmpRocket++) {
+                for (var tmpRocket = 0; tmpRocket < this.rocket.length; tmpRocket++) {
                     if (collider.visible) {
-                        var rocketFire = new createjs.Point(this.enemyRocket[tmpRocket].x, this.enemyRocket[tmpRocket].y);
+                        var rocketFire = new createjs.Point(this.rocket[tmpRocket].x, this.rocket[tmpRocket].y);
                         var objectPosition = new createjs.Point(collider.x, collider.y);
                         var theDistance = this.distance(rocketFire, objectPosition);
-                        if (theDistance < ((this.enemyRocket[tmpRocket].height * 0.5) + (collider.height * 0.5))) {
+                        if (theDistance < ((this.rocket[tmpRocket].height * 0.5) + (collider.height * 0.5))) {
                             if (collider.isColliding != true) {
-                                if (flagPower)
-                                    flagPower = false;
-                                else {
-                                    //show explosion
-                                    createjs.Sound.play(collider.sound);
-                                    this.scoreboard.lives--;
-                                    var explosion = new Explosion(this.explosionImg);
-                                    explosion.x = this.plane.x;
-                                    explosion.y = this.plane.y;
-                                    this.enemyPlane2.visible = false;
-                                    this.plane.reset();
-                                    this.game.removeChild(this.enemyRocket[tmpRocket]);
-                                    this.enemyRocket.splice(tmpRocket, 1);
-                                    this.explosions.push(explosion);
-                                    this.game.addChild(explosion);
-                                }
+                                createjs.Sound.play(collider.sound);
+                                this.scoreboard.score += 200;
+                                this.bossHitCount--;
+                                var explosion = new Explosion(this.explosionImg);
+                                explosion.x = this.rocket[tmpRocket].x;
+                                explosion.y = this.rocket[tmpRocket].y - 20;
+                                this.game.removeChild(this.rocket[tmpRocket]);
+                                //var index = this.rocket.indexOf(thtmpRocket);
+                                this.rocket.splice(tmpRocket, 1);
+                                //alert(explosion.x);
+                                this.explosions.push(explosion);
+                                this.game.addChild(explosion);
                             }
                             collider.isColliding = true;
                         }
                         else {
                             collider.isColliding = false;
                         }
+                    }
+                }
+            }
+        }; // checkCollision of rocket With Enemy plane Method
+        // CHECK PLANE COLLISION OF WITH ENEMY ROCKET METHOD
+        GamePlay3.prototype.checkPlaneCollisionWithEnemyRocket = function () {
+            if (this.scoreboard.active) {
+                for (var tmpRocket = 0; tmpRocket < this.enemyRocket.length; tmpRocket++) {
+                    //if (this.plane.visible) {
+                    var rocketFire = new createjs.Point(this.enemyRocket[tmpRocket].x, this.enemyRocket[tmpRocket].y);
+                    var objectPosition = new createjs.Point(this.plane.x, this.plane.y);
+                    var theDistance = this.distance(rocketFire, objectPosition);
+                    if (theDistance < ((this.enemyRocket[tmpRocket].height * 0.5) + (this.plane.height * 0.5))) {
+                        if (this.enemyRocket[tmpRocket].isColliding != true) {
+                            if (flagPower)
+                                flagPower = false;
+                            else {
+                                //show explosion
+                                createjs.Sound.play(this.enemyRocket[tmpRocket].sound);
+                                this.scoreboard.lives--;
+                                var explosion = new Explosion(this.explosionImg);
+                                explosion.x = this.plane.x;
+                                explosion.y = this.plane.y;
+                                //this.enemyPlane2.visible = false;
+                                this.game.removeChild(this.enemyRocket[tmpRocket]);
+                                this.enemyRocket.splice(tmpRocket, 1);
+                                this.plane.reset();
+                                this.explosions.push(explosion);
+                                this.game.addChild(explosion);
+                            }
+                        }
+                        this.enemyRocket[tmpRocket].isColliding = true;
+                    }
+                    else {
+                        this.enemyRocket[tmpRocket].isColliding = false;
                     }
                 }
             }
@@ -250,7 +282,33 @@ var states;
                 for (var i = 0; i < this.enemyRocket.length; i++) {
                     this.enemyRocket[i].update();
                 }
+                this.checkRocketCollisionWithEnemyBoss(this.enemyBoss);
                 this.scoreboard.update();
+                if (this.scoreboard.lives < 1) {
+                    this.scoreboard.active = false;
+                    createjs.Sound.stop();
+                    currentScore = this.scoreboard.score;
+                    if (currentScore > highScore) {
+                        highScore = currentScore;
+                    }
+                    this.game.removeAllChildren();
+                    stage.removeChild(this.game);
+                    currentState = constants.GAME_OVER_STATE;
+                    stateChanged = true;
+                }
+                if (this.bossHitCount == 0) {
+                    this.scoreboard.active = false;
+                    createjs.Sound.stop();
+                    currentScore = this.scoreboard.score;
+                    if (currentScore > highScore) {
+                        highScore = currentScore;
+                    }
+                    this.game.removeAllChildren();
+                    stage.removeChild(this.game);
+                    currentState = constants.GAME_PLAY_3_OVER;
+                    stateChanged = true;
+                }
+                this.checkPlaneCollisionWithEnemyRocket();
                 stage.update();
             }
             else {
@@ -310,12 +368,12 @@ var states;
                 this.enemyPlane2.update();
                 this.checkRocketCollisionWithEnemyPlane(this.enemyPlane1);
                 this.checkRocketCollisionWithEnemyPlane(this.enemyPlane2);
+                this.checkPlaneCollisionWithEnemyRocket();
                 this.checkCollision(this.island);
                 this.checkCollision(this.powerPlanet);
                 this.checkCollision(this.enemyPlane1);
                 this.checkCollision(this.enemyPlane2);
                 this.scoreboard.update();
-                //stage3 complete
                 if (this.scoreboard.lives < 1) {
                     this.scoreboard.active = false;
                     createjs.Sound.stop();

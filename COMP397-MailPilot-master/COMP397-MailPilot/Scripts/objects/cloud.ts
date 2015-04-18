@@ -7,7 +7,7 @@ module objects {
         // CONSTRUCTOR
         constructor() {
             super("cloud");
-            this.sound = "thunder";
+            this.sound = "blast";
             this.reset();
         }
 
